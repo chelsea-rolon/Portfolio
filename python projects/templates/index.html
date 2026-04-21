@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bank Statement Processor</title>
+  <style>
+    /* ── Reset & base ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f0f2f5;
+      color: #1a1a2e;
+      min-height: 100vh;
+    }
+
+    /* ── Header ─────────────────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+      color: #fff;
+      padding: 2rem 2.5rem;
+    }
+    header h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.5px; }
+    header p  { margin-top: .4rem; opacity: .75; font-size: .95rem; }
+
+    /* ── Layout ─────────────────────────────────────────────────── */
+    main { max-width: 1200px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+
+    /* ── Card ────────────────────────────────────────────────────── */
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .card h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1.2rem; color: #0f3460; }
+
+    /* ── Upload area ─────────────────────────────────────────────── */
+    #drop-zone {
+      border: 2px dashed #b0bec5;
+      border-radius: 10px;
+      padding: 2.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    #drop-zone.drag-over { border-color: #0f3460; background: #e8edf5; }
+    #drop-zone svg { width: 48px; height: 48px; stroke: #90a4ae; margin-bottom: .8rem; }
+    #drop-zone p { color: #607d8b; font-size: .95rem; }
+    #drop-zone strong { color: #0f3460; cursor: pointer; }
+    #file-input { display: none; }
+    #file-name  { margin-top: .75rem; font-size: .85rem; color: #555; }
+
+    /* ── Alerts ──────────────────────────────────────────────────── */
+    .alert {
+      border-radius: 8px;
+      padding: .85rem 1.1rem;
+      font-size: .9rem;
+      margin-bottom: .75rem;
+      display: flex;
+      gap: .6rem;
+      align-items: flex-start;
+    }
+    .alert-warning { background: #fff8e1; border-left: 4px solid #f9a825; color: #5d4037; }
+    .alert-success { background: #e8f5e9; border-left: 4px solid #43a047; color: #2e7d32; }
+    .alert-error   { background: #fce4ec; border-left: 4px solid #e53935; color: #b71c1c; }
+
+    /* ── Filters ─────────────────────────────────────────────────── */
+    #filter-section { display: none; }
+    .checkbox-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+    }
+    .checkbox-grid label {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      background: #f5f7fa;
+      border: 1px solid #dce3ee;
+      border-radius: 20px;
+      padding: .4rem .9rem;
+      cursor: pointer;
+      font-size: .88rem;
+      transition: background .15s, border-color .15s;
+      user-select: none;
+    }
+    .checkbox-grid label:hover { background: #e3eaf5; border-color: #0f3460; }
+    .checkbox-grid input[type=checkbox] { accent-color: #0f3460; width: 15px; height: 15px; }
+    .checkbox-grid input[type=checkbox]:checked + span { font-weight: 600; color: #0f3460; }
+    .checkbox-grid label:has(input:checked) {
+      background: #d6e4f7;
+      border-color: #0f3460;
+    }
+
+    /* ── Tabs ────────────────────────────────────────────────────── */
+    #results-section { display: none; }
+    .tabs { display: flex; gap: .3rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+    .tab-btn {
+      background: #f0f2f5;
+      border: none;
+      border-radius: 8px 8px 0 0;
+      padding: .6rem 1.2rem;
+      cursor: pointer;
+      font-size: .88rem;
+      color: #607d8b;
+      font-weight: 500;
+      transition: background .15s, color .15s;
+    }
+    .tab-btn.active { background: #0f3460; color: #fff; }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* ── Table ───────────────────────────────────────────────────── */
+    .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid #e0e6ef; }
+    table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    th {
+      background: #f0f4fa;
+      padding: .65rem .9rem;
+      text-align: left;
+      font-weight: 600;
+      color: #0f3460;
+      border-bottom: 2px solid #dce3ee;
+      white-space: nowrap;
+    }
+    td { padding: .55rem .9rem; border-bottom: 1px solid #f0f2f5; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f7faff; }
+    .amount { text-align: right; font-variant-numeric: tabular-nums; }
+    .badge {
+      display: inline-block;
+      padding: .2rem .6rem;
+      border-radius: 12px;
+      font-size: .78rem;
+      font-weight: 600;
+      background: #e3eaf5;
+      color: #0f3460;
+    }
+
+    /* ── Grand total ─────────────────────────────────────────────── */
+    .grand-total {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #0f3460;
+      gap: .5rem;
+    }
+
+    /* ── Downloads ───────────────────────────────────────────────── */
+    #download-section { display: none; }
+    .download-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-dl {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      background: #0f3460;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: .65rem 1.3rem;
+      font-size: .9rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .15s, transform .1s;
+    }
+    .btn-dl:hover { background: #1a4a80; transform: translateY(-1px); }
+    .btn-dl svg { width: 16px; height: 16px; }
+
+    /* ── Spinner ─────────────────────────────────────────────────── */
+    .spinner {
+      display: inline-block;
+      width: 20px; height: 20px;
+      border: 3px solid #dce3ee;
+      border-top-color: #0f3460;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      vertical-align: middle;
+      margin-right: .4rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Stat chips ─────────────────────────────────────────────── */
+    .stats { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .stat  {
+      background: #f0f4fa;
+      border-radius: 8px;
+      padding: .5rem 1rem;
+      font-size: .85rem;
+      color: #455a64;
+    }
+    .stat strong { color: #0f3460; font-size: 1.05rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🏦 Bank Statement Processor</h1>
+  <p>Upload a CSV or PDF bank statement, filter by category, and download your results.</p>
+</header>
+
+<main>
+
+  <!-- ── Upload ── -->
+  <div class="card">
+    <h2>Upload Statement</h2>
+    <div id="drop-zone" role="button" tabindex="0" aria-label="Upload file">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 16V8m0 0-3 3m3-3 3 3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M3 16.5V18a2 2 0 002 2h14a2 2 0 002-2v-1.5" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <p>Drag &amp; drop your file here, or <strong id="browse-link">browse</strong></p>
+      <p style="font-size:.8rem;margin-top:.4rem;opacity:.7">Supported: .csv, .pdf</p>
+      <input type="file" id="file-input" accept=".csv,.pdf" />
+    </div>
+    <div id="file-name"></div>
+    <div id="upload-status" style="margin-top:1rem"></div>
+  </div>
+
+  <!-- ── Filters ── -->
+  <div class="card" id="filter-section">
+    <h2>Filter Categories</h2>
+    <p style="font-size:.88rem;color:#607d8b;margin-bottom:1rem">
+      Check a category to <strong>hide</strong> it from the filtered results and totals.
+      All categories are shown by default.
+    </p>
+    <div class="checkbox-grid" id="checkbox-grid"></div>
+  </div>
+
+  <!-- ── Results ── -->
+  <div class="card" id="results-section">
+    <h2>Results</h2>
+    <div class="stats" id="stats-bar"></div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="tab-all">All Transactions</button>
+      <button class="tab-btn"        data-tab="tab-filtered">Filtered</button>
+      <button class="tab-btn"        data-tab="tab-summary">Category Totals</button>
+      <button class="tab-btn"        data-tab="tab-other">Other</button>
+    </div>
+
+    <div id="tab-all"      class="tab-pane active"><div class="table-wrap"><table id="tbl-all"></table></div></div>
+    <div id="tab-filtered" class="tab-pane">       <div class="table-wrap"><table id="tbl-filtered"></table></div></div>
+    <div id="tab-summary"  class="tab-pane">
+      <div class="table-wrap"><table id="tbl-summary"></table></div>
+      <div class="grand-total" id="grand-total"></div>
+    </div>
+    <div id="tab-other"    class="tab-pane">       <div class="table-wrap"><table id="tbl-other"></table></div></div>
+  </div>
+
+  <!-- ── Downloads ── -->
+  <div class="card" id="download-section">
+    <h2>Downloads</h2>
+    <div class="download-row">
+      <a class="btn-dl" href="/download/cleaned">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 12-4-4m4 4 4-4M4 20h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Cleaned Transactions
+      </a>
+      <a class="btn-dl" href="/download/filtered" id="dl-filtered">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 12-4-4m4 4 4-4M4 20h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Filtered Transactions
+      </a>
+      <a class="btn-dl" href="/download/summary" id="dl-summary">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 12-4-4m4 4 4-4M4 20h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Category Totals
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+let allRows      = [];
+let allColumns   = [];
+let catCol       = '';
+let amountCol    = null;
+
+// ── Tab switching ──────────────────────────────────────────────────────────
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn, .tab-pane').forEach(el => el.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ── Drag & drop / file input ───────────────────────────────────────────────
+const dropZone  = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+
+document.getElementById('browse-link').addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') fileInput.click(); });
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener('change', () => { if (fileInput.files.length) handleFile(fileInput.files[0]); });
+
+// ── Upload ─────────────────────────────────────────────────────────────────
+async function handleFile(file) {
+  document.getElementById('file-name').textContent = `Selected: ${file.name}`;
+  const statusEl = document.getElementById('upload-status');
+  statusEl.innerHTML = '<span class="spinner"></span> Processing…';
+
+  const form = new FormData();
+  form.append('file', file);
+
+  try {
+    const resp = await fetch('/upload', { method: 'POST', body: form });
+    const data = await resp.json();
+
+    if (data.error) {
+      statusEl.innerHTML = alert_html('error', data.error);
+      return;
+    }
+
+    // Store globals
+    allRows    = data.rows;
+    allColumns = data.columns;
+
+    // Detect cat / amount column names from first row key names (server echoes normalised columns)
+    catCol    = data.columns.find(c => c.toLowerCase().includes('category')) || '';
+    amountCol = data.columns.find(c => ['amount','debit','credit'].some(k => c.toLowerCase().includes(k))) || null;
+
+    // Status
+    let html = alert_html('success', `Loaded <strong>${data.total_rows.toLocaleString()}</strong> transactions.`);
+    (data.warnings || []).forEach(w => { html += alert_html('warning', w); });
+    statusEl.innerHTML = html;
+
+    // Build checkboxes
+    buildCheckboxes(data.categories);
+
+    // Populate all-transactions table immediately
+    renderTable('tbl-all', allColumns, allRows);
+    renderOther(allRows);
+
+    // Trigger a filter call (nothing excluded yet) to populate filtered + summary tabs
+    await applyFilter();
+
+    // Show sections
+    document.getElementById('filter-section').style.display   = '';
+    document.getElementById('results-section').style.display  = '';
+    document.getElementById('download-section').style.display = '';
+  } catch (err) {
+    statusEl.innerHTML = alert_html('error', `Unexpected error: ${err.message}`);
+  }
+}
+
+// ── Checkboxes ─────────────────────────────────────────────────────────────
+function buildCheckboxes(categories) {
+  const grid = document.getElementById('checkbox-grid');
+  grid.innerHTML = '';
+  categories.forEach(cat => {
+    const label = document.createElement('label');
+    const cb    = document.createElement('input');
+    cb.type  = 'checkbox';
+    cb.value = cat;
+    cb.addEventListener('change', applyFilter);
+    const span   = document.createElement('span');
+    span.textContent = cap(cat);
+    label.appendChild(cb);
+    label.appendChild(span);
+    grid.appendChild(label);
+  });
+}
+
+function getExcluded() {
+  return [...document.querySelectorAll('#checkbox-grid input:checked')].map(cb => cb.value);
+}
+
+// ── Filter API call ────────────────────────────────────────────────────────
+async function applyFilter() {
+  const exclude = getExcluded();
+  try {
+    const resp = await fetch('/filter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ exclude }),
+    });
+    const data = await resp.json();
+    if (data.error) return;
+
+    renderTable('tbl-filtered', allColumns, data.rows);
+    renderTable('tbl-summary', Object.keys(data.summary[0] || {}), data.summary);
+    renderOther(data.rows);
+    updateStats(data.filtered_count, data.grand_total);
+
+    // Grand total
+    const gtEl = document.getElementById('grand-total');
+    gtEl.textContent = data.grand_total !== null
+      ? `Grand Total: $${data.grand_total.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}`
+      : '';
+  } catch (_) {}
+}
+
+// ── Table renderer ─────────────────────────────────────────────────────────
+function renderTable(id, columns, rows) {
+  const tbl = document.getElementById(id);
+  if (!columns || !columns.length || !rows) { tbl.innerHTML = '<tr><td>No data.</td></tr>'; return; }
+
+  let html = '<thead><tr>' + columns.map(c => `<th>${c}</th>`).join('') + '</tr></thead><tbody>';
+  rows.forEach(row => {
+    html += '<tr>' + columns.map(col => {
+      const val = row[col] ?? '';
+      const isAmt = amountCol && col === amountCol;
+      const isCat = catCol && col === catCol;
+      if (isCat)  return `<td><span class="badge">${cap(String(val))}</span></td>`;
+      if (isAmt)  return `<td class="amount">${typeof val === 'number' ? '$'+val.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}) : val}</td>`;
+      return `<td>${val}</td>`;
+    }).join('') + '</tr>';
+  });
+  html += '</tbody>';
+  tbl.innerHTML = html;
+}
+
+function renderOther(rows) {
+  if (!catCol) return;
+  const otherRows = rows.filter(r => String(r[catCol] || '').toLowerCase() === 'other');
+  renderTable('tbl-other', allColumns, otherRows);
+}
+
+// ── Stats bar ──────────────────────────────────────────────────────────────
+function updateStats(filteredCount, grandTotal) {
+  const bar = document.getElementById('stats-bar');
+  let html = `<div class="stat">All transactions: <strong>${allRows.length.toLocaleString()}</strong></div>`;
+  html    += `<div class="stat">Filtered rows: <strong>${filteredCount.toLocaleString()}</strong></div>`;
+  if (grandTotal !== null)
+    html  += `<div class="stat">Grand total: <strong>$${grandTotal.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</strong></div>`;
+  bar.innerHTML = html;
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+function cap(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+
+function alert_html(type, msg) {
+  const icons = {
+    success: '✅', warning: '⚠️', error: '❌'
+  };
+  return `<div class="alert alert-${type}">${icons[type]} <span>${msg}</span></div>`;
+}
+</script>
+
+</body>
+</html>
