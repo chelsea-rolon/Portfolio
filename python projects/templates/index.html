@@ -344,9 +344,9 @@ async function handleFile(file) {
     await applyFilter();
 
     // Show sections
-    document.getElementById('filter-section').style.display   = '';
-    document.getElementById('results-section').style.display  = '';
-    document.getElementById('download-section').style.display = '';
+    document.getElementById('filter-section').style.display   = 'block';
+    document.getElementById('results-section').style.display  = 'block';
+    document.getElementById('download-section').style.display = 'block';
   } catch (err) {
     statusEl.innerHTML = alert_html('error', `Unexpected error: ${err.message}`);
   }
@@ -384,7 +384,11 @@ async function applyFilter() {
       body: JSON.stringify({ exclude }),
     });
     const data = await resp.json();
-    if (data.error) return;
+    if (data.error) {
+      const statusEl = document.getElementById('upload-status');
+      statusEl.innerHTML += alert_html('error', `Filter failed: ${data.error}`);
+      return;
+    }
 
     renderTable('tbl-filtered', allColumns, data.rows);
     renderTable('tbl-summary', Object.keys(data.summary[0] || {}), data.summary);
@@ -396,7 +400,10 @@ async function applyFilter() {
     gtEl.textContent = data.grand_total !== null
       ? `Grand Total: $${data.grand_total.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}`
       : '';
-  } catch (_) {}
+  } catch (err) {
+    const statusEl = document.getElementById('upload-status');
+    statusEl.innerHTML += alert_html('error', `Filter request failed: ${err.message}`);
+  }
 }
 
 // ── Table renderer ─────────────────────────────────────────────────────────
