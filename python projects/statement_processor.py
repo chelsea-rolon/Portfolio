@@ -26,6 +26,37 @@ CATEGORY_KEYWORDS = {
     'deposit':        ['deposit', 'payroll', 'direct deposit', 'refund'],
 }
 
+MERCHANT_CATEGORY_RULES = {
+    'aldi': 'groceries',
+    'amazon': 'shopping',
+    'audible': 'entertainment',
+    'afterpay': 'shopping',
+    'cafe': 'dining',
+    'doordash': 'dining',
+    'etsy': 'hobbies/crafts',
+    'exxon': 'transport',
+    'goodwill': 'hobbies/crafts',
+    'gym': 'health',
+    'hobby lobby': 'hobbies/crafts',
+    'hulu': 'entertainment',
+    'lyft': 'transport',
+    'mcdonalds': 'dining',
+    'netflix': 'entertainment',
+    'payroll': 'deposit',
+    'pharmacy': 'health',
+    'publix': 'groceries',
+    'racetrac': 'transport',
+    'shell': 'transport',
+    'spotify': 'entertainment',
+    'staples': 'hobbies/crafts',
+    'starbucks': 'dining',
+    'target': 'groceries',
+    'uber eats': 'dining',
+    'uber': 'transport',
+    'walmart': 'groceries',
+    'wawa': 'transport',
+}
+
 BANK_NOISE_PATTERNS = ['www.fairwinds.org', 'fairwinds']
 
 
@@ -34,11 +65,35 @@ BANK_NOISE_PATTERNS = ['www.fairwinds.org', 'fairwinds']
 # ---------------------------------------------------------------------------
 
 def infer_category(description):
-    text = str(description).lower()
+    text = _normalize_merchant_text(description)
+
+    for merchant, category in MERCHANT_CATEGORY_RULES.items():
+        if merchant in text:
+            return category
+
     for category, keywords in CATEGORY_KEYWORDS.items():
         if any(keyword in text for keyword in keywords):
             return category
     return 'other'
+
+
+def _normalize_merchant_text(description):
+    """Normalize transaction text so merchant-name matching is more reliable."""
+    text = str(description).lower().strip()
+
+    # Remove common payment-channel prefixes and noise that obscure merchant names.
+    text = re.sub(r'\b(pos|debit|credit|purchase|checkcard|deposit|withdrawal|payment|ach)\b', ' ', text)
+    text = re.sub(r'\b(card\s*\d+|ref\s*#?\w+|trace\s*#?\w+)\b', ' ', text)
+
+    # Remove store numbers / ids like #1234 or trailing long digit groups.
+    text = re.sub(r'#\d+', ' ', text)
+    text = re.sub(r'\b\d{3,}\b', ' ', text)
+
+    # Keep letters, spaces, apostrophes and ampersands; collapse punctuation and whitespace.
+    text = text.replace("'", "")
+    text = re.sub(r'[^a-z&\s]', ' ', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
 
 
 def _looks_like_header(value):

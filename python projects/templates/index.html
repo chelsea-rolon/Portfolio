@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bank Statement Processor</title>
+  <title>Expenses Tracker</title>
   <style>
     /* ── Reset & base ───────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Segoe UI', system-ui, sans-serif;
-      background: #f0f2f5;
+      background: #f5f6f8;
       color: #1a1a2e;
       min-height: 100vh;
     }
@@ -35,6 +35,8 @@
       margin-bottom: 1.5rem;
     }
     .card h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1.2rem; color: #0f3460; }
+    .upload-title { font-weight: 700; }
+    h3 { font-weight: 600; color: #0f3460; font-size: 1rem; }
 
     /* ── Upload area ─────────────────────────────────────────────── */
     #drop-zone {
@@ -67,7 +69,7 @@
     .alert-error   { background: #fce4ec; border-left: 4px solid #e53935; color: #b71c1c; }
 
     /* ── Filters ─────────────────────────────────────────────────── */
-    #filter-section { display: none; }
+    #filter-section { display: block; }
     .checkbox-grid {
       display: flex;
       flex-wrap: wrap;
@@ -95,7 +97,12 @@
     }
 
     /* ── Tabs ────────────────────────────────────────────────────── */
-    #results-section { display: none; }
+    #results-section { display: block; }
+    .placeholder-note {
+      font-size: .9rem;
+      color: #607d8b;
+      margin-bottom: .85rem;
+    }
     .tabs { display: flex; gap: .3rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
     .tab-btn {
       background: #f0f2f5;
@@ -205,9 +212,9 @@
 
   <!-- ── Upload ── -->
   <div class="card">
-    <h2>Upload Statement</h2>
+    <h2 class="upload-title">Upload Statement</h2>
     <div id="drop-zone" role="button" tabindex="0" aria-label="Upload file">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg id="upload-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor:pointer">
         <path d="M12 16V8m0 0-3 3m3-3 3 3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M3 16.5V18a2 2 0 002 2h14a2 2 0 002-2v-1.5" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
@@ -215,6 +222,7 @@
       <p style="font-size:.8rem;margin-top:.4rem;opacity:.7">Supported: .csv, .pdf</p>
       <input type="file" id="file-input" accept=".csv,.pdf" />
     </div>
+    <h3 style="margin-top:1rem;">Results Appear Below</h3>
     <div id="file-name"></div>
     <div id="upload-status" style="margin-top:1rem"></div>
   </div>
@@ -222,6 +230,7 @@
   <!-- ── Filters ── -->
   <div class="card" id="filter-section">
     <h2>Filter Categories</h2>
+    <p id="filter-placeholder" class="placeholder-note">Category checkboxes will appear here after you upload a file.</p>
     <p style="font-size:.88rem;color:#607d8b;margin-bottom:1rem">
       Check a category to <strong>hide</strong> it from the filtered results and totals.
       All categories are shown by default.
@@ -232,6 +241,7 @@
   <!-- ── Results ── -->
   <div class="card" id="results-section">
     <h2>Results</h2>
+    <p id="results-placeholder" class="placeholder-note">Your uploaded statement data will appear in these tabs.</p>
     <div class="stats" id="stats-bar"></div>
 
     <div class="tabs">
@@ -290,8 +300,10 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 // ── Drag & drop / file input ───────────────────────────────────────────────
 const dropZone  = document.getElementById('drop-zone');
 const fileInput = document.getElementById('file-input');
+const uploadIcon = document.getElementById('upload-icon');
 
 document.getElementById('browse-link').addEventListener('click', () => fileInput.click());
+uploadIcon.addEventListener('click', () => fileInput.click());
 dropZone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') fileInput.click(); });
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
@@ -335,6 +347,12 @@ async function handleFile(file) {
 
     // Build checkboxes
     buildCheckboxes(data.categories);
+
+    // Hide placeholders once real data exists
+    const filterPlaceholder = document.getElementById('filter-placeholder');
+    const resultsPlaceholder = document.getElementById('results-placeholder');
+    if (filterPlaceholder) filterPlaceholder.style.display = 'none';
+    if (resultsPlaceholder) resultsPlaceholder.style.display = 'none';
 
     // Populate all-transactions table immediately
     renderTable('tbl-all', allColumns, allRows);
