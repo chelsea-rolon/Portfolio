@@ -118,8 +118,52 @@ class GameApp(tk.Tk):
             "In the far distance there's an old bridge.\n"
             "Do you cross the bridge or try to swim across?"
         )
-        self._btn("CROSS BRIDGE", self.show_treasure_chest).pack(side=tk.LEFT, padx=10, expand=True)
+        self._btn("CROSS BRIDGE", self.show_mountain_path).pack(side=tk.LEFT, padx=10, expand=True)
         self._btn("SWIM ACROSS", self.show_swept_away).pack(side=tk.LEFT, padx=10, expand=True)
+
+    def show_mountain_path(self):
+        self._clear_btns()
+        self._draw_mountain_path()
+        self._text(
+            "You find yourself at the base of a towering mountain.\n"
+            "The path ahead is steep and treacherous.\n"
+            "Do you climb the mountain or turn back?"
+        )
+        self._btn("CLIMB", self.show_CLIMB_UP).pack(side=tk.LEFT, padx=10, expand=True)
+        self._btn("TURN BACK", self.show_intro).pack(side=tk.LEFT, padx=10, expand=True)
+
+    def show_CLIMB_UP(self):
+        self._clear_btns()
+        self._draw_climb_up()
+        self._text(
+            "You start climbing the mountain, but it's slippery and dangerous.\n"
+            "Halfway up, you lose your footing and fall back down to the base.\n"
+            "Do you want to try climbing again or head back to the forest?"
+        )
+        self._btn("TRY AGAIN", self.show_CLIMB_UP_Again).pack(side=tk.LEFT, padx=10, expand=True)
+        self._btn("BACK TO FOREST", self.show_go_back_false).pack(side=tk.LEFT, padx=10, expand=True)
+
+    def show_CLIMB_UP_Again(self):
+        self._clear_btns()
+        self._draw_keep_going_up()
+        self._text(
+            "You carefully climb again, taking it slow and steady.\n"
+            "After a long and exhausting climb, you reach the summit!\n"
+            "The view is breathtaking and you feel a sense of accomplishment.\n"
+            "Nearby you see a treasure chest half-buried in the rocks.\n"
+        )
+        self._btn("HEAD BACK DOWN", self.show_mountain_path).pack(side=tk.LEFT, padx=10, expand=True)
+        self._btn("OPEN CHEST", self.show_treasure_chest, bg="#6a5200").pack(side=tk.LEFT, padx=10, expand=True)
+
+    def show_go_back_false(self):
+        self._clear_btns()
+        self._draw_go_back_false()
+        self._text(
+            "You decide to turn back and return to the fork in the forest.\n"
+            "Out of nowhere a harpy comes swooping down and snatches you up into the sky!\n"
+            "\u2620 GAME OVER \u2620"
+        )
+        self._btn("PLAY AGAIN", self.show_intro).pack(expand=True)
 
     def show_fairy_ring(self):
         self._clear_btns()
@@ -182,22 +226,40 @@ class GameApp(tk.Tk):
 
     def _draw_image_scene(self, img_path):
         from pathlib import Path
+        self.canvas.delete("all")
         try:
             from PIL import Image
-        except ImportError:
-            self.canvas.delete("all")
-            return
-        self.canvas.delete("all")
-        base = Path(__file__).parent
-        img = Image.open(base / img_path).convert("RGB").resize((GW, GH), Image.LANCZOS)
-        for r in range(GH):
-            for c in range(GW):
-                red, green, blue = img.getpixel((c, r))
-                self._px(c, r, f"#{red:02x}{green:02x}{blue:02x}")
+            base = Path(__file__).parent
+            img = Image.open(base / img_path).convert("RGB").resize((GW, GH), Image.LANCZOS)
+            for r in range(GH):
+                for c in range(GW):
+                    red, green, blue = img.getpixel((c, r))
+                    self._px(c, r, f"#{red:02x}{green:02x}{blue:02x}")
+        except Exception:
+            # If image can't be loaded, fill with a dark background so text remains readable
+            self._rect(0, 0, GW, GH, "#1a1a2e")
 
     def _draw_dark_forest(self, paths=False):
         img = "forked_path.png" if paths else "forest_path.png"
         self._draw_image_scene(f"game photos/{img}")
+
+    def _draw_mountain_path(self):
+        self._draw_image_scene("game photos/mountain_trail.png")
+
+    def _draw_climb_up(self):
+        self._draw_image_scene("game photos/mountain_trail.png")   
+
+    def _draw_climb_up_again(self):
+        self._draw_image_scene("game photos/keep_going_up.png")
+    
+    def _draw_keep_going_up(self):
+        self._draw_image_scene("game photos/keep_going_up.png")
+
+    def _draw_treasure_chest(self):
+        self._draw_image_scene("game photos/treasure_chest.png")
+
+    def _draw_go_back_false(self):
+        self._draw_image_scene("game photos/go_back_false.png")
 
     def _draw_misty_field(self):
         self._draw_image_scene("game photos/misty_field.png")
