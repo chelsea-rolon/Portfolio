@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karaoke Admin</title>
+  <style>
+    :root {
+      --bg-1: #f4f7fb;
+      --bg-2: #e9f0ff;
+      --panel: #ffffff;
+      --ink: #12203a;
+      --accent: #0a8f6a;
+      --accent-dark: #07674c;
+      --line: #cfd8e3;
+      --warn: #b83737;
+      --info: #1f6ba5;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 10%, #ffffff 0%, transparent 40%),
+        radial-gradient(circle at 90% 20%, #d7ecff 0%, transparent 35%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2));
+      padding: 24px;
+    }
+
+    .wrap {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(18, 32, 58, 0.12);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(120deg, #2d1f5f, #8d2f5f);
+      color: #fff;
+      padding: 22px 24px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.4px;
+    }
+
+    .hero p {
+      margin: 8px 0 0;
+      opacity: 0.92;
+      font-size: 0.95rem;
+    }
+
+    .content {
+      padding: 24px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #f8fbff;
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .panel h2,
+    .panel h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    input,
+    button {
+      font: inherit;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .row input {
+      flex: 1 1 240px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--accent);
+    }
+
+    button:hover {
+      background: var(--accent-dark);
+    }
+
+    .btn-secondary {
+      background: var(--info);
+    }
+
+    .btn-secondary:hover {
+      background: #19598a;
+    }
+
+    .btn-danger {
+      background: var(--warn);
+    }
+
+    .btn-danger:hover {
+      background: #962e2e;
+    }
+
+    .hint,
+    .status,
+    .error {
+      font-size: 0.9rem;
+      min-height: 1.2em;
+    }
+
+    .hint { color: #3d4e68; }
+    .status { color: #23415f; }
+    .error { color: var(--warn); }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.84rem;
+      color: #2e4a68;
+    }
+
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #c77d00;
+    }
+
+    .live-dot.online {
+      background: #0a8f6a;
+    }
+
+    .qr-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 180px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .qr-wrap img {
+      width: min(220px, 100%);
+      height: auto;
+      display: block;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    th,
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #e7edf5;
+      text-align: left;
+      font-size: 0.92rem;
+    }
+
+    th {
+      background: #f0f5fc;
+      font-weight: 700;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .action-cell {
+      white-space: nowrap;
+    }
+
+    .video-panel {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #f8fbff;
+      padding: 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    #video-player {
+      width: 100%;
+      max-height: 420px;
+      border-radius: 10px;
+      background: #111;
+    }
+
+    @media (max-width: 860px) {
+      body { padding: 14px; }
+      .grid { grid-template-columns: 1fr; }
+      .content { padding: 16px; }
+      .hero { padding: 18px 16px; }
+      .hero h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <section class="wrap">
+    <header class="hero">
+      <h1>Karaoke Admin</h1>
+      <p>Manage the queue, mark singers complete, reset the board, and share the public sign-up link.</p>
+    </header>
+
+    <main class="content">
+      <section class="grid">
+        <section class="panel">
+          <h2>Share Public Sign-up</h2>
+          <div class="live-badge">
+            <span id="live-dot" class="live-dot"></span>
+            <span id="live-status">Connecting live updates...</span>
+          </div>
+          <div class="row">
+            <input id="share-link" type="text" readonly />
+            <button id="copy-link" type="button" class="btn-secondary">Copy Link</button>
+          </div>
+          <div class="row">
+            <button id="open-public" type="button" class="btn-secondary">Open Public Page</button>
+          </div>
+          <div class="qr-wrap">
+            <img id="qr-code" alt="QR code for public karaoke sign up link" />
+          </div>
+          <p class="hint">Guests should use the public page. This admin page is for host controls only.</p>
+        </section>
+
+        <section class="panel">
+          <h2>Admin Controls</h2>
+          <div class="row">
+            <input id="admin-code" type="password" placeholder="Admin code" />
+          </div>
+          <div class="row">
+            <button id="reset-signups" type="button" class="btn-danger">Reset All Signups</button>
+          </div>
+          <p class="hint">Default admin code is 1013 unless you set KARAOKE_ADMIN_CODE before starting the server.</p>
+          <p id="error" class="error" aria-live="polite"></p>
+          <p id="status" class="status" aria-live="polite"></p>
+        </section>
+      </section>
+
+      <section class="panel table-wrap">
+        <h2>Queue</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Song</th>
+              <th>List</th>
+              <th>Video</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="signup-list">
+            <tr>
+              <td colspan="6">No signups yet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="panel table-wrap">
+        <h2>Completed Performances</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Song</th>
+              <th>List</th>
+              <th>Completed</th>
+            </tr>
+          </thead>
+          <tbody id="completed-list">
+            <tr>
+              <td colspan="5">No completed performances yet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="video-panel">
+        <h3>Video Player</h3>
+        <p class="hint" id="video-hint">Pick Play from a queue row to start the linked video.</p>
+        <video id="video-player" controls></video>
+      </section>
+    </main>
+  </section>
+
+  <script>
+    let signups = [];
+    let completedSignups = [];
+    let songVideos = {};
+    let websocket;
+    let refreshTimer;
+
+    const shareLinkEl = document.getElementById("share-link");
+    const copyLinkBtn = document.getElementById("copy-link");
+    const openPublicBtn = document.getElementById("open-public");
+    const qrCodeEl = document.getElementById("qr-code");
+    const adminCodeEl = document.getElementById("admin-code");
+    const resetBtn = document.getElementById("reset-signups");
+    const signupListEl = document.getElementById("signup-list");
+    const errorEl = document.getElementById("error");
+    const statusEl = document.getElementById("status");
+    const liveDotEl = document.getElementById("live-dot");
+    const liveStatusEl = document.getElementById("live-status");
+    const videoPlayer = document.getElementById("video-player");
+    const videoHintEl = document.getElementById("video-hint");
+
+    function renderSignups() {
+      if (signups.length === 0) {
+        signupListEl.innerHTML = "<tr><td colspan=\"6\">No signups yet.</td></tr>";
+      } else {
+        signupListEl.innerHTML = signups
+          .map((item, index) => {
+            return `<tr><td>${index + 1}</td><td>${item.name}</td><td>${item.song}</td><td>${item.list}</td><td><button class=\"btn-secondary play-btn\" data-index=\"${index}\" type=\"button\">Play</button></td><td class=\"action-cell\"><button class=\"complete-btn\" data-song=\"${encodeURIComponent(item.song)}\" type=\"button\">Mark Complete</button></td></tr>`;
+          })
+          .join("");
+      }
+
+      signupListEl.querySelectorAll(".play-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const index = Number(btn.dataset.index);
+          const row = signups[index];
+          if (!row) return;
+          const videoPath = row.videoPath || songVideos[row.song];
+          if (!videoPath) return;
+          videoPlayer.src = videoPath;
+          videoPlayer.play().catch(() => {
+          });
+          videoHintEl.textContent = `Now playing: ${row.song}`;
+        });
+      });
+
+      signupListEl.querySelectorAll(".complete-btn").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          errorEl.textContent = "";
+          statusEl.textContent = "";
+
+          const code = adminCodeEl.value.trim();
+          if (!code) {
+            errorEl.textContent = "Enter the admin code before completing a signup.";
+            return;
+          }
+
+          const song = decodeURIComponent(btn.dataset.song);
+          const confirmed = window.confirm(`Mark ${song} as completed?`);
+          if (!confirmed) return;
+
+          btn.disabled = true;
+          try {
+            const response = await fetch("/api/complete-signup", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ code, song })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+              throw new Error(data.detail || "Unable to complete signup.");
+            }
+
+            const completedEntry = signups.find(item => item.song === song);
+            signups = signups.filter(item => item.song !== song);
+            if (completedEntry) {
+              completedSignups = [{
+                ...completedEntry,
+                completedAt: new Date().toISOString(),
+              }, ...completedSignups];
+            }
+            renderSignups();
+            renderCompletedSignups();
+
+            statusEl.textContent = `${song} was marked as completed.`;
+            await loadState();
+          } catch (error) {
+            errorEl.textContent = error.message;
+          } finally {
+            btn.disabled = false;
+          }
+        });
+      });
+    }
+
+    function renderCompletedSignups() {
+      const completedListEl = document.getElementById("completed-list");
+      if (completedSignups.length === 0) {
+        completedListEl.innerHTML = "<tr><td colspan=\"5\">No completed performances yet.</td></tr>";
+        return;
+      }
+
+      completedListEl.innerHTML = completedSignups
+        .map((item, index) => {
+          const completedAt = item.completedAt ? new Date(item.completedAt).toLocaleString() : "";
+          return `<tr><td>${index + 1}</td><td>${item.name}</td><td>${item.song}</td><td>${item.list}</td><td>${completedAt}</td></tr>`;
+        })
+        .join("");
+    }
+
+    async function loadState() {
+      const response = await fetch("/api/state", { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      signups = data.signups;
+      completedSignups = data.completedSignups || [];
+      songVideos = data.songVideos;
+      shareLinkEl.value = data.shareUrl || window.location.origin + "/";
+      qrCodeEl.src = `/api/qr?text=${encodeURIComponent(shareLinkEl.value)}`;
+      renderSignups();
+      renderCompletedSignups();
+    }
+
+    function setLiveStatus(isOnline, label) {
+      liveDotEl.classList.toggle("online", isOnline);
+      liveStatusEl.textContent = label;
+    }
+
+    function connectLiveUpdates() {
+      const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+      websocket = new WebSocket(`${protocol}//${window.location.host}/ws`);
+
+      websocket.addEventListener("open", () => {
+        setLiveStatus(true, "Live updates connected.");
+      });
+
+      websocket.addEventListener("message", event => {
+        const message = JSON.parse(event.data);
+        if (message.type !== "state") return;
+
+        signups = message.payload.signups;
+        completedSignups = message.payload.completedSignups || [];
+        songVideos = message.payload.songVideos;
+        if (message.payload.shareUrl) {
+          shareLinkEl.value = message.payload.shareUrl;
+          qrCodeEl.src = `/api/qr?text=${encodeURIComponent(shareLinkEl.value)}`;
+        }
+        renderSignups();
+        renderCompletedSignups();
+      });
+
+      websocket.addEventListener("close", () => {
+        setLiveStatus(false, "Live updates disconnected. Using refresh fallback.");
+        window.clearTimeout(refreshTimer);
+        refreshTimer = window.setTimeout(connectLiveUpdates, 2500);
+      });
+
+      websocket.addEventListener("error", () => {
+        setLiveStatus(false, "Live updates unavailable. Using refresh fallback.");
+      });
+    }
+
+    copyLinkBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(shareLinkEl.value);
+        statusEl.textContent = "Public signup link copied.";
+      } catch (error) {
+        errorEl.textContent = "Unable to copy the public link.";
+      }
+    });
+
+    openPublicBtn.addEventListener("click", () => {
+      window.open(shareLinkEl.value, "_blank", "noopener,noreferrer");
+    });
+
+    resetBtn.addEventListener("click", async () => {
+      errorEl.textContent = "";
+      statusEl.textContent = "";
+
+      const code = adminCodeEl.value.trim();
+      if (!code) {
+        errorEl.textContent = "Enter the admin code to reset signups.";
+        return;
+      }
+
+      const confirmed = window.confirm("Reset all karaoke signups and restore all songs?");
+      if (!confirmed) return;
+
+      resetBtn.disabled = true;
+      try {
+        const response = await fetch("/api/reset", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ code })
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.detail || "Unable to reset signups.");
+        }
+
+        statusEl.textContent = "All signups have been reset.";
+        await loadState();
+      } catch (error) {
+        errorEl.textContent = error.message;
+      } finally {
+        resetBtn.disabled = false;
+      }
+    });
+
+    async function initializePage() {
+      try {
+        await loadState();
+        statusEl.textContent = "Admin page connected to the shared karaoke server.";
+        connectLiveUpdates();
+      } catch (error) {
+        errorEl.textContent = `Unable to load karaoke state: ${error.message}`;
+      }
+    }
+
+    initializePage();
+    window.setInterval(() => {
+      if (websocket && websocket.readyState === WebSocket.OPEN) return;
+      loadState().catch(() => {
+      });
+    }, 5000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clairvoya Broadway Karaoke Sign Up</title>
+  <style>
+    :root {
+      --bg-1: #f4f7fb;
+      --bg-2: #e9f0ff;
+      --panel: #ffffff;
+      --ink: #12203a;
+      --accent: #0a8f6a;
+      --accent-dark: #07674c;
+      --line: #cfd8e3;
+      --info: #1f6ba5;
+      --warn: #b83737;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 10%, #ffffff 0%, transparent 40%),
+        radial-gradient(circle at 90% 20%, #d7ecff 0%, transparent 35%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2));
+      padding: 24px;
+    }
+
+    .wrap {
+      width: min(980px, 100%);
+      margin: 0 auto;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(18, 32, 58, 0.12);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(120deg, #14335f, #1f6ba5);
+      color: #fff;
+      padding: 22px 24px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.4px;
+    }
+
+    .hero p {
+      margin: 8px 0 0;
+      opacity: 0.9;
+      font-size: 0.95rem;
+    }
+
+    .content {
+      padding: 24px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .top-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #f8fbff;
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .panel h2,
+    .panel h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    input,
+    select,
+    button {
+      font: inherit;
+    }
+
+    input,
+    select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    select:disabled {
+      background: #f1f4f8;
+      color: #6d7a8f;
+      cursor: not-allowed;
+    }
+
+    .hint,
+    .status,
+    .error {
+      font-size: 0.9rem;
+      min-height: 1.2em;
+    }
+
+    .hint { color: #3d4e68; }
+    .status { color: #23415f; }
+    .error { color: var(--warn); }
+
+    .actions,
+    .share-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .share-row input {
+      flex: 1 1 260px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 11px 16px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 120ms ease;
+    }
+
+    button:hover {
+      background: var(--accent-dark);
+    }
+
+    .btn-secondary {
+      background: var(--info);
+    }
+
+    .btn-secondary:hover {
+      background: #19598a;
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.84rem;
+      color: #2e4a68;
+    }
+
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #c77d00;
+    }
+
+    .live-dot.online {
+      background: var(--accent);
+    }
+
+    .qr-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 180px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .qr-wrap img {
+      width: min(220px, 100%);
+      height: auto;
+      display: block;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    th,
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #e7edf5;
+      text-align: left;
+      font-size: 0.92rem;
+    }
+
+    th {
+      background: #f0f5fc;
+      font-weight: 700;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    @media (max-width: 820px) {
+      body { padding: 14px; }
+      .top-grid { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .content { padding: 16px; }
+      .hero { padding: 18px 16px; }
+      .hero h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <section class="wrap">
+    <header class="hero">
+      <h1>Clairvoya Broadway Karaoke Sign Up</h1>
+      <p>Enter your name and pick one song from either list.</p>
+    </header>
+
+    <main class="content">
+      <section class="top-grid">
+        <form id="signup-form" class="panel" novalidate>
+          <h2>Sign Up</h2>
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Your name" required />
+          </div>
+
+          <div class="grid">
+            <div class="field">
+              <label for="performer-song">Performer Songs</label>
+              <select id="performer-song" name="performer-song">
+                <option value="">Select a performer song</option>
+              </select>
+              <p class="hint">Choose one song from this list or the other list.</p>
+            </div>
+
+            <div class="field">
+              <label for="other-song">Other Songs</label>
+              <select id="other-song" name="other-song">
+                <option value="">Select an other song</option>
+              </select>
+              <p class="hint">Each song can only be claimed once.</p>
+            </div>
+          </div>
+
+          <p id="error" class="error" aria-live="polite"></p>
+          <div class="actions">
+            <button type="submit">Submit Request</button>
+            <p id="status" class="status" aria-live="polite"></p>
+          </div>
+        </form>
+
+        <section class="panel">
+          <h2>Share</h2>
+          <div class="live-badge">
+            <span id="live-dot" class="live-dot"></span>
+            <span id="live-status">Connecting live updates...</span>
+          </div>
+          <div class="share-row">
+            <input id="share-link" type="text" readonly />
+            <button id="copy-link" type="button" class="btn-secondary">Copy Link</button>
+          </div>
+          <div class="qr-wrap">
+            <img id="qr-code" alt="QR code for karaoke sign up link" />
+          </div>
+          <p class="hint">Use this page to sign up from any device on the same network.</p>
+        </section>
+      </section>
+
+      <section class="panel table-wrap">
+        <h2>Current Queue</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Song</th>
+              <th>List</th>
+            </tr>
+          </thead>
+          <tbody id="signup-list">
+            <tr>
+              <td colspan="4">No signups yet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </section>
+
+  <script>
+    let performerSongs = [];
+    let otherSongs = [];
+    let songVideos = {};
+    let signups = [];
+    let websocket;
+    let refreshTimer;
+
+    const form = document.getElementById("signup-form");
+    const nameInput = document.getElementById("name");
+    const performerSelect = document.getElementById("performer-song");
+    const otherSelect = document.getElementById("other-song");
+    const errorEl = document.getElementById("error");
+    const statusEl = document.getElementById("status");
+    const signupListEl = document.getElementById("signup-list");
+    const submitBtn = form.querySelector("button[type='submit']");
+    const shareLinkEl = document.getElementById("share-link");
+    const copyLinkBtn = document.getElementById("copy-link");
+    const qrCodeEl = document.getElementById("qr-code");
+    const liveDotEl = document.getElementById("live-dot");
+    const liveStatusEl = document.getElementById("live-status");
+
+    function fillSelect(selectEl, songs, placeholderText) {
+      const keep = selectEl.value;
+      selectEl.innerHTML = "";
+
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = placeholderText;
+      selectEl.appendChild(placeholder);
+
+      songs.forEach(song => {
+        const opt = document.createElement("option");
+        opt.value = song;
+        opt.textContent = song;
+        selectEl.appendChild(opt);
+      });
+
+      if (songs.includes(keep)) {
+        selectEl.value = keep;
+      }
+    }
+
+    function syncMutualExclusion() {
+      if (performerSelect.value) {
+        otherSelect.value = "";
+        otherSelect.disabled = true;
+      } else {
+        otherSelect.disabled = false;
+      }
+
+      if (otherSelect.value) {
+        performerSelect.value = "";
+        performerSelect.disabled = true;
+      } else {
+        performerSelect.disabled = false;
+      }
+    }
+
+    function resetFormFields() {
+      form.reset();
+      performerSelect.disabled = false;
+      otherSelect.disabled = false;
+      errorEl.textContent = "";
+    }
+
+    function renderSignups() {
+      if (signups.length === 0) {
+        signupListEl.innerHTML = '<tr><td colspan="4">No signups yet.</td></tr>';
+        return;
+      }
+
+      signupListEl.innerHTML = signups
+        .map((item, index) => `<tr><td>${index + 1}</td><td>${item.name}</td><td>${item.song}</td><td>${item.list}</td></tr>`)
+        .join("");
+    }
+
+    async function loadState() {
+      const response = await fetch("/api/state", { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      performerSongs = data.performerSongs;
+      otherSongs = data.otherSongs;
+      songVideos = data.songVideos;
+      signups = data.signups;
+      shareLinkEl.value = data.shareUrl || window.location.href;
+      qrCodeEl.src = `/api/qr?text=${encodeURIComponent(shareLinkEl.value)}`;
+
+      fillSelect(performerSelect, performerSongs, "Select a performer song");
+      fillSelect(otherSelect, otherSongs, "Select an other song");
+      syncMutualExclusion();
+      renderSignups();
+    }
+
+    function setLiveStatus(isOnline, label) {
+      liveDotEl.classList.toggle("online", isOnline);
+      liveStatusEl.textContent = label;
+    }
+
+    function connectLiveUpdates() {
+      const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+      websocket = new WebSocket(`${protocol}//${window.location.host}/ws`);
+
+      websocket.addEventListener("open", () => {
+        setLiveStatus(true, "Live updates connected.");
+      });
+
+      websocket.addEventListener("message", event => {
+        const message = JSON.parse(event.data);
+        if (message.type !== "state") return;
+
+        performerSongs = message.payload.performerSongs;
+        otherSongs = message.payload.otherSongs;
+        songVideos = message.payload.songVideos;
+        signups = message.payload.signups;
+        if (message.payload.shareUrl) {
+          shareLinkEl.value = message.payload.shareUrl;
+          qrCodeEl.src = `/api/qr?text=${encodeURIComponent(shareLinkEl.value)}`;
+        }
+        fillSelect(performerSelect, performerSongs, "Select a performer song");
+        fillSelect(otherSelect, otherSongs, "Select an other song");
+        syncMutualExclusion();
+        renderSignups();
+      });
+
+      websocket.addEventListener("close", () => {
+        setLiveStatus(false, "Live updates disconnected. Using refresh fallback.");
+        window.clearTimeout(refreshTimer);
+        refreshTimer = window.setTimeout(connectLiveUpdates, 2500);
+      });
+
+      websocket.addEventListener("error", () => {
+        setLiveStatus(false, "Live updates unavailable. Using refresh fallback.");
+      });
+    }
+
+    performerSelect.addEventListener("change", () => {
+      errorEl.textContent = "";
+      statusEl.textContent = "";
+      syncMutualExclusion();
+    });
+
+    otherSelect.addEventListener("change", () => {
+      errorEl.textContent = "";
+      statusEl.textContent = "";
+      syncMutualExclusion();
+    });
+
+    copyLinkBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(shareLinkEl.value);
+        statusEl.textContent = "Share link copied.";
+      } catch {
+        errorEl.textContent = "Unable to copy the share link.";
+      }
+    });
+
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      errorEl.textContent = "";
+      statusEl.textContent = "";
+
+      const name = nameInput.value.trim();
+      const performerChoice = performerSelect.value;
+      const otherChoice = otherSelect.value;
+
+      if (!name) {
+        errorEl.textContent = "Please enter a name.";
+        return;
+      }
+
+      const selectedCount = (performerChoice ? 1 : 0) + (otherChoice ? 1 : 0);
+      if (selectedCount !== 1) {
+        errorEl.textContent = "Please choose exactly one song from either list.";
+        return;
+      }
+
+      const selectedSong = performerChoice || otherChoice;
+      const selectedList = performerChoice ? "Performer Songs" : "Other Songs";
+
+      submitBtn.disabled = true;
+      try {
+        const response = await fetch("/api/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, song: selectedSong, list: selectedList })
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.detail || "Unable to submit signup.");
+        }
+
+        resetFormFields();
+        statusEl.textContent = `${data.name} signed up for ${data.song}.`;
+        await loadState();
+      } catch (error) {
+        errorEl.textContent = error.message;
+        await loadState();
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+
+    async function initializePage() {
+      submitBtn.disabled = true;
+      try {
+        await loadState();
+        statusEl.textContent = "Connected to the shared karaoke sign-up server.";
+        connectLiveUpdates();
+      } catch (error) {
+        errorEl.textContent = `Unable to load shared signups: ${error.message}`;
+      } finally {
+        submitBtn.disabled = false;
+      }
+    }
+
+    initializePage();
+    window.setInterval(() => {
+      if (websocket && websocket.readyState === WebSocket.OPEN) return;
+      loadState().catch(() => {
+      });
+    }, 5000);
+  </script>
+</body>
+</html>
