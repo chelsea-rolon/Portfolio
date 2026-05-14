@@ -1,4 +1,7 @@
+import csv
+import json
 import tkinter as tk
+from pathlib import Path
 
 PS = 24   # screen pixels per grid cell
 GW = 50   # grid columns  (1200 px wide — scaled to window)
@@ -34,6 +37,13 @@ class GameApp(tk.Tk):
         self.btn_frame.pack(fill=tk.X, padx=20, pady=(4, 16))
         self.btn_frame.pack_propagate(False)
 
+        self._scene_key = None
+        self._overlay_tag = "overlay"
+        self._animation_job = None
+        self._animation_phase = 0
+        self._sprite_cache = {}
+        self._sprite_config = self._load_sprite_config()
+
         self.show_intro()
 
     # ── Helpers ────────────────────────────────────────────────────────────
@@ -61,19 +71,155 @@ class GameApp(tk.Tk):
             for cc in range(c, c + w):
                 self._px(cc, rr, color)
 
+    def _set_scene(self, scene_key):
+        self._scene_key = scene_key
+
+    def _load_sprite_config(self):
+        config_path = Path(__file__).parent / "game photos" / "sprite_config.json"
+        try:
+            with open(config_path, "r", encoding="utf-8") as f:
+                loaded = json.load(f)
+            scenes = loaded.get("scenes")
+            if isinstance(scenes, dict):
+                return scenes
+        except Exception:
+            pass
+        return {}
+
+    def _stop_overlay_animation(self):
+        if self._animation_job is not None:
+            self.after_cancel(self._animation_job)
+            self._animation_job = None
+
+    def _load_sprite_cells(self, rel_path):
+        if rel_path in self._sprite_cache:
+            return self._sprite_cache[rel_path]
+
+        sprite_path = Path(__file__).parent / rel_path
+        try:
+            with open(sprite_path, "r", encoding="utf-8", newline="") as f:
+                rows = []
+                reader = csv.reader(f)
+                for row in reader:
+                    parsed = []
+                    for cell in row:
+                        token = cell.strip().lower()
+                        if token in ("", ".", "transparent", "none"):
+                            parsed.append(None)
+                        else:
+                            parsed.append(cell.strip())
+                    rows.append(parsed)
+            self._sprite_cache[rel_path] = rows
+            return rows
+        except Exception:
+            self._sprite_cache[rel_path] = []
+            return []
+
+    def _overlay_visible(self, overlay):
+        anim = overlay.get("animation")
+        if not isinstance(anim, dict):
+            return True
+        mode = str(anim.get("mode", "")).lower()
+        if mode == "blink":
+            return self._animation_phase % 2 == 0
+        return True
+
+    def _draw_overlay_sprite(self, overlay):
+        rel_path = overlay.get("sprite")
+        if not rel_path:
+            return
+
+        cells = self._load_sprite_cells(rel_path)
+        c0 = int(overlay.get("c", 0))
+        r0 = int(overlay.get("r", 0))
+
+        for r_index, row in enumerate(cells):
+            for c_index, color in enumerate(row):
+                if not color:
+                    continue
+                c = c0 + c_index
+                r = r0 + r_index
+                if c < 0 or c >= GW or r < 0 or r >= GH:
+                    continue
+                x, y = c * PS, r * PS
+                self.canvas.create_rectangle(
+                    x, y, x + PS, y + PS,
+                    fill=color, outline="", tags=(self._overlay_tag,)
+                )
+
+    def _schedule_overlay_animation(self, overlays):
+        intervals = []
+        for overlay in overlays:
+            anim = overlay.get("animation")
+            if not isinstance(anim, dict):
+                continue
+            mode = str(anim.get("mode", "")).lower()
+            if mode == "blink":
+                intervals.append(int(anim.get("interval_ms", 420)))
+
+        if not intervals:
+            return
+
+        interval = max(100, min(intervals))
+        self._animation_job = self.after(interval, self._animate_overlays)
+
+    def _draw_scene_overlays(self):
+        self._stop_overlay_animation()
+        self.canvas.delete(self._overlay_tag)
+
+        overlays = self._sprite_config.get(self._scene_key, [])
+        if not isinstance(overlays, list) or not overlays:
+            return
+
+        for overlay in overlays:
+            if not isinstance(overlay, dict):
+                continue
+            if self._overlay_visible(overlay):
+                self._draw_overlay_sprite(overlay)
+
+        self._schedule_overlay_animation(overlays)
+
+    def _animate_overlays(self):
+        self._animation_job = None
+        self._animation_phase += 1
+        self.canvas.delete(self._overlay_tag)
+
+        overlays = self._sprite_config.get(self._scene_key, [])
+        if not isinstance(overlays, list) or not overlays:
+            return
+
+        for overlay in overlays:
+            if not isinstance(overlay, dict):
+                continue
+            if self._overlay_visible(overlay):
+                self._draw_overlay_sprite(overlay)
+
+        self._schedule_overlay_animation(overlays)
+
     # ══════════════════════════════════════════════════════════════════════
     # SCENES
     # ══════════════════════════════════════════════════════════════════════
 
     def show_intro(self):
         self._clear_btns()
+        self._set_scene("intro")
         self._draw_dark_forest(paths=False)
         self._text("Welcome to Choose Your Quest!\nDo you wish to play?")
         self._btn("YES", self.show_forest_fork).pack(side=tk.LEFT, padx=10, expand=True)
         self._btn("NO", self.show_confirm_quit, bg="#4a1a1a").pack(side=tk.LEFT, padx=10, expand=True)
 
+    def choose_character(self):
+        self._clear_btns()
+        self._set_scene("choose_character")
+        self._draw_dark_forest(paths=False)
+        self._text("Choose your character:")
+        self._btn("WARRIOR", self.show_forest_fork).pack(side=tk.LEFT, padx=10, expand=True)
+        self._btn("MAGE", self.show_forest_fork).pack(side=tk.LEFT, padx=10, expand=True)
+        self._btn("ROGUE", self.show_forest_fork).pack(side=tk.LEFT, padx=10, expand=True)
+
     def show_confirm_quit(self):
         self._clear_btns()
+        self._set_scene("confirm_quit")
         self._draw_dark_gameover()
         self._text("Are you sure you want to quit?")
         self._btn("YES, QUIT", self.show_goodbye, bg="#6a1a1a").pack(side=tk.LEFT, padx=10, expand=True)
@@ -81,12 +227,14 @@ class GameApp(tk.Tk):
 
     def show_goodbye(self):
         self._clear_btns()
+        self._set_scene("goodbye")
         self._draw_dark_gameover()
         self._text("\U0001F622  Goodbye...  \U0001F622")
         self.after(5000, self.quit)
 
     def show_forest_fork(self):
         self._clear_btns()
+        self._set_scene("forest_fork")
         self._draw_dark_forest(paths=True)
         self._text(
             "You are transported instantly into a dark forest.\n"
@@ -99,6 +247,7 @@ class GameApp(tk.Tk):
 
     def show_mist_path(self):
         self._clear_btns()
+        self._set_scene("mist_path")
         self._draw_misty_field()
         self._text(
             "You enter the icy mist and stumble into an open field.\n"
@@ -111,6 +260,7 @@ class GameApp(tk.Tk):
 
     def show_river_path(self):
         self._clear_btns()
+        self._set_scene("river_path")
         self._draw_river_bridge()
         self._text(
             "The river looks treacherous.\n"
@@ -123,6 +273,7 @@ class GameApp(tk.Tk):
 
     def show_mountain_path(self):
         self._clear_btns()
+        self._set_scene("mountain_path")
         self._draw_mountain_path()
         self._text(
             "You find yourself at the base of a towering mountain.\n"
@@ -134,6 +285,7 @@ class GameApp(tk.Tk):
 
     def show_CLIMB_UP(self):
         self._clear_btns()
+        self._set_scene("climb_up")
         self._draw_climb_up()
         self._text(
             "You start climbing the mountain, but it's slippery and dangerous.\n"
@@ -145,6 +297,7 @@ class GameApp(tk.Tk):
 
     def show_CLIMB_UP_Again(self):
         self._clear_btns()
+        self._set_scene("climb_up_again")
         self._draw_keep_going_up()
         self._text(
             "You carefully climb again, taking it slow and steady.\n"
@@ -157,6 +310,7 @@ class GameApp(tk.Tk):
 
     def show_go_back_false(self):
         self._clear_btns()
+        self._set_scene("go_back_false")
         self._draw_go_back_false()
         self._text(
             "You decide to turn back and return to the fork in the forest.\n"
@@ -167,6 +321,7 @@ class GameApp(tk.Tk):
 
     def show_fairy_ring(self):
         self._clear_btns()
+        self._set_scene("fairy_ring")
         self._draw_fairy_realm()
         self._text(
             "The mushrooms glow brighter and you vanish into another world!\n"
@@ -181,6 +336,7 @@ class GameApp(tk.Tk):
 
     def show_swept_away(self):
         self._clear_btns()
+        self._set_scene("swept_away")
         self._draw_swept_away()
         self._text(
             "You dive in — but the current is far too strong!\n"
@@ -192,6 +348,7 @@ class GameApp(tk.Tk):
 
     def show_treasure_chest(self):
         self._clear_btns()
+        self._set_scene("treasure_chest")
         self._draw_treasure_chest()
         self._text(
             "You discover a magnificent treasure chest\n"
@@ -202,6 +359,7 @@ class GameApp(tk.Tk):
 
     def show_silver_potion(self):
         self._clear_btns()
+        self._set_scene("silver_potion")
         self._draw_silver_potion()
         self._text(
             "You drink the silver potion and make your wish.\n"
@@ -212,6 +370,7 @@ class GameApp(tk.Tk):
 
     def show_lost_in_mist(self):
         self._clear_btns()
+        self._set_scene("lost_in_mist")
         self._draw_dark_gameover()
         self._text(
             "You walk for hours and hours...\n"
@@ -225,7 +384,6 @@ class GameApp(tk.Tk):
     # ══════════════════════════════════════════════════════════════════════
 
     def _draw_image_scene(self, img_path):
-        from pathlib import Path
         self.canvas.delete("all")
         try:
             from PIL import Image
@@ -238,10 +396,14 @@ class GameApp(tk.Tk):
         except Exception:
             # If image can't be loaded, fill with a dark background so text remains readable
             self._rect(0, 0, GW, GH, "#1a1a2e")
+        self._draw_scene_overlays()
 
     def _draw_dark_forest(self, paths=False):
         img = "forked_path.png" if paths else "forest_path.png"
         self._draw_image_scene(f"game photos/{img}")
+
+    def _draw_choose_character(self):
+        self._draw_image_scene("game photos/choose_character.png")
 
     def _draw_mountain_path(self):
         self._draw_image_scene("game photos/mountain_trail.png")

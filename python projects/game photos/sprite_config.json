@@ -1,0 +1,156 @@
+{
+  "scenes": {
+    "intro": [
+      {
+        "sprite": "game photos/sprites/PLACEHOLDER.csv",
+        "c": 0,
+        "r": 0,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 420
+        }
+      }
+    ],
+    "forest_fork": [
+      {
+        "sprite": "game photos/sprites/path_arrow_left.csv",
+        "c": 12,
+        "r": 10,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 420
+        }
+      },
+      {
+        "sprite": "game photos/sprites/path_arrow_right.csv",
+        "c": 33,
+        "r": 10,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 420
+        }
+      }
+    ],
+    "mist_path": [
+      {
+        "sprite": "game photos/sprites/PLACEHOLDER.csv",
+        "c": 0,
+        "r": 0,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 420
+        }
+      }
+    ],
+    "river_path": [
+      {
+        "sprite": "game photos/sprites/PLACEHOLDER.csv",
+        "c": 0,
+        "r": 0,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 420
+        }
+      }
+    ],
+    "mountain_path": [
+      {
+        "sprite": "game photos/sprites/PLACEHOLDER.csv",
+        "c": 0,
+        "r": 0,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 420
+        }
+      }
+    ],
+    "climb_up": [
+      {
+        "sprite": "game photos/sprites/PLACEHOLDER.csv",
+        "c": 0,
+        "r": 0,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 420
+        }
+      }
+    ],
+    "climb_up_again": [
+      {
+        "sprite": "game photos/sprites/PLACEHOLDER.csv",
+        "c": 0,
+        "r": 0,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 420
+        }
+      }
+    ],
+    "go_back_false": [
+      {
+        "sprite": "game photos/sprites/PLACEHOLDER.csv",
+        "c": 0,
+        "r": 0,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 420
+        }
+      }
+    ],
+    "fairy_ring": [
+      {
+        "sprite": "game photos/sprites/glow_ring.csv",
+        "c": 20,
+        "r": 8,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 300
+        }
+      }
+    ],
+    "swept_away": [
+      {
+        "sprite": "game photos/sprites/PLACEHOLDER.csv",
+        "c": 0,
+        "r": 0,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 420
+        }
+      }
+    ],
+    "treasure_chest": [
+      {
+        "sprite": "game photos/sprites/PLACEHOLDER.csv",
+        "c": 0,
+        "r": 0,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 420
+        }
+      }
+    ],
+    "silver_potion": [
+      {
+        "sprite": "game photos/sprites/PLACEHOLDER.csv",
+        "c": 0,
+        "r": 0,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 420
+        }
+      }
+    ],
+    "lost_in_mist": [
+      {
+        "sprite": "game photos/sprites/PLACEHOLDER.csv",
+        "c": 0,
+        "r": 0,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 420
+        }
+      }
+    ]
+  }
+}
