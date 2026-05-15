@@ -268,6 +268,10 @@
             <button id="copy-link" type="button" class="btn-secondary">Copy Link</button>
           </div>
           <div class="row">
+            <input id="share-link-edit" type="text" placeholder="Set persistent public link" />
+            <button id="save-link" type="button">Save Link</button>
+          </div>
+          <div class="row">
             <button id="open-public" type="button" class="btn-secondary">Open Public Page</button>
           </div>
           <div class="qr-wrap">
@@ -347,7 +351,9 @@
     let refreshTimer;
 
     const shareLinkEl = document.getElementById("share-link");
+    const shareLinkEditEl = document.getElementById("share-link-edit");
     const copyLinkBtn = document.getElementById("copy-link");
+    const saveLinkBtn = document.getElementById("save-link");
     const openPublicBtn = document.getElementById("open-public");
     const qrCodeEl = document.getElementById("qr-code");
     const adminCodeEl = document.getElementById("admin-code");
@@ -460,6 +466,7 @@
       completedSignups = data.completedSignups || [];
       songVideos = data.songVideos;
       shareLinkEl.value = data.shareUrl || window.location.origin + "/";
+      shareLinkEditEl.value = shareLinkEl.value;
       qrCodeEl.src = `/api/qr?text=${encodeURIComponent(shareLinkEl.value)}`;
       renderSignups();
       renderCompletedSignups();
@@ -487,6 +494,7 @@
         songVideos = message.payload.songVideos;
         if (message.payload.shareUrl) {
           shareLinkEl.value = message.payload.shareUrl;
+          shareLinkEditEl.value = message.payload.shareUrl;
           qrCodeEl.src = `/api/qr?text=${encodeURIComponent(shareLinkEl.value)}`;
         }
         renderSignups();
@@ -510,6 +518,45 @@
         statusEl.textContent = "Public signup link copied.";
       } catch (error) {
         errorEl.textContent = "Unable to copy the public link.";
+      }
+    });
+
+    saveLinkBtn.addEventListener("click", async () => {
+      errorEl.textContent = "";
+      statusEl.textContent = "";
+
+      const code = adminCodeEl.value.trim();
+      if (!code) {
+        errorEl.textContent = "Enter the admin code to save the public link.";
+        return;
+      }
+
+      const shareUrl = shareLinkEditEl.value.trim();
+      if (!shareUrl) {
+        errorEl.textContent = "Enter a valid public link to save.";
+        return;
+      }
+
+      saveLinkBtn.disabled = true;
+      try {
+        const response = await fetch("/api/share-url", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ code, shareUrl })
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.detail || "Unable to save the public link.");
+        }
+
+        shareLinkEl.value = data.shareUrl;
+        shareLinkEditEl.value = data.shareUrl;
+        qrCodeEl.src = `/api/qr?text=${encodeURIComponent(data.shareUrl)}`;
+        statusEl.textContent = "Public link saved.";
+      } catch (error) {
+        errorEl.textContent = error.message;
+      } finally {
+        saveLinkBtn.disabled = false;
       }
     });
 

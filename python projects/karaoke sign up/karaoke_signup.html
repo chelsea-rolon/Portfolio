@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clairvoya Broadway Karaoke Sign Up</title>
+  <title>Friday Night Karaoke</title>
   <style>
     :root {
       --bg-1: #f4f7fb;
@@ -42,7 +42,7 @@
     }
 
     .hero {
-      background: linear-gradient(120deg, #14335f, #1f6ba5);
+      background: linear-gradient(120deg, #022658, #2c81c1);
       color: #fff;
       padding: 22px 24px;
     }
@@ -153,7 +153,7 @@
       border-radius: 10px;
       padding: 11px 16px;
       background: var(--accent);
-      color: #fff;
+      color: #ffffff;
       font-weight: 700;
       cursor: pointer;
       transition: background 120ms ease;
@@ -250,60 +250,36 @@
 <body>
   <section class="wrap">
     <header class="hero">
-      <h1>Clairvoya Broadway Karaoke Sign Up</h1>
-      <p>Enter your name and pick one song from either list.</p>
+      <h1>Friday Night Karaoke</h1>
+      <p>Every second Friday at Hourglass Brewing</p>
+      <p> Follow up on Instagram for updates and locations- @friKaraoke</p>
     </header>
 
     <main class="content">
       <section class="top-grid">
         <form id="signup-form" class="panel" novalidate>
-          <h2>Sign Up</h2>
+          <h2>Enter your name below and choose your song!</h2>
           <div class="field">
             <label for="name">Name</label>
             <input id="name" name="name" type="text" placeholder="Your name" required />
           </div>
 
-          <div class="grid">
+          
             <div class="field">
-              <label for="performer-song">Performer Songs</label>
-              <select id="performer-song" name="performer-song">
-                <option value="">Select a performer song</option>
-              </select>
-              <p class="hint">Choose one song from this list or the other list.</p>
-            </div>
-
-            <div class="field">
-              <label for="other-song">Other Songs</label>
+              <label for="other-song">Songs</label>
               <select id="other-song" name="other-song">
-                <option value="">Select an other song</option>
+                <option value="">Select a song</option>
               </select>
-              <p class="hint">Each song can only be claimed once.</p>
+              <p class="hint">*Each song can only be claimed once.</p>
             </div>
           </div>
 
           <p id="error" class="error" aria-live="polite"></p>
           <div class="actions">
-            <button type="submit">Submit Request</button>
+            <button type="submit">Submit</button>
             <p id="status" class="status" aria-live="polite"></p>
           </div>
         </form>
-
-        <section class="panel">
-          <h2>Share</h2>
-          <div class="live-badge">
-            <span id="live-dot" class="live-dot"></span>
-            <span id="live-status">Connecting live updates...</span>
-          </div>
-          <div class="share-row">
-            <input id="share-link" type="text" readonly />
-            <button id="copy-link" type="button" class="btn-secondary">Copy Link</button>
-          </div>
-          <div class="qr-wrap">
-            <img id="qr-code" alt="QR code for karaoke sign up link" />
-          </div>
-          <p class="hint">Use this page to sign up from any device on the same network.</p>
-        </section>
-      </section>
 
       <section class="panel table-wrap">
         <h2>Current Queue</h2>
@@ -313,12 +289,11 @@
               <th>#</th>
               <th>Name</th>
               <th>Song</th>
-              <th>List</th>
             </tr>
           </thead>
           <tbody id="signup-list">
             <tr>
-              <td colspan="4">No signups yet.</td>
+              <td colspan="3">No signups yet.</td>
             </tr>
           </tbody>
         </table>
@@ -326,6 +301,18 @@
     </main>
   </section>
 
+  <section class="panel">
+          <h2>Share</h2>
+          <div class="live-badge">
+            <span id="live-dot" class="live-dot"></span>
+            <span id="live-status">Updated in real time...</span>
+          </div>
+          <div class="qr-wrap">
+            <img id="qr-code" alt="QR code for karaoke sign up link" />
+          </div>
+          <p class="hint">Scan the QR code to be directed to the karaoke sign up page.</p>
+        </section>
+      </section>  
   <script>
     let performerSongs = [];
     let otherSongs = [];

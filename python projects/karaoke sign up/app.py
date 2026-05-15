@@ -8,6 +8,7 @@ from datetime import datetime, UTC
 from pathlib import Path
 from threading import Lock
 from typing import Any
+from urllib.parse import urlparse
 
 import qrcode
 import qrcode.image.svg
@@ -21,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent
 SONGS_PATH = BASE_DIR / "songs.json"
 SIGNUPS_PATH = BASE_DIR / "signups.json"
 COMPLETED_SIGNUPS_PATH = BASE_DIR / "completed_signups.json"
+SHARE_URL_PATH = BASE_DIR / "share_url.txt"
 PLAYLIST_DIR = BASE_DIR / "karaoke playlist"
 PERFORMER_DIR = BASE_DIR / "performer songs"
 HTML_PATH = BASE_DIR / "karaoke_signup.html"
@@ -64,6 +66,11 @@ class CompleteSignupRequest(BaseModel):
     song: str = Field(min_length=1)
 
 
+class ShareUrlRequest(BaseModel):
+    code: str = Field(min_length=1)
+    shareUrl: str = Field(min_length=1)
+
+
 class ConnectionManager:
     def __init__(self) -> None:
         self._clients: set[WebSocket] = set()
@@ -95,6 +102,32 @@ def ensure_signups_file() -> None:
         SIGNUPS_PATH.write_text("[]\n", encoding="utf-8")
     if not COMPLETED_SIGNUPS_PATH.exists():
         COMPLETED_SIGNUPS_PATH.write_text("[]\n", encoding="utf-8")
+
+
+def load_share_url() -> str:
+    if not SHARE_URL_PATH.exists():
+        return ""
+
+    return SHARE_URL_PATH.read_text(encoding="utf-8").strip()
+
+
+def save_share_url(share_url: str) -> str:
+    cleaned_url = share_url.strip()
+    if cleaned_url:
+        SHARE_URL_PATH.write_text(f"{cleaned_url}\n", encoding="utf-8")
+    return cleaned_url
+
+
+def validate_share_url(share_url: str) -> str:
+    cleaned_url = share_url.strip()
+    if not cleaned_url:
+        raise HTTPException(status_code=400, detail="Share link cannot be empty.")
+
+    parsed_url = urlparse(cleaned_url)
+    if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
+        raise HTTPException(status_code=400, detail="Share link must be a valid http or https URL.")
+
+    return cleaned_url
 
 
 def load_song_config() -> dict[str, Any]:
@@ -180,6 +213,11 @@ def build_state(share_url: str | None = None) -> dict[str, Any]:
     song_videos = dict(config.get("songVideos", {}))
     signups = load_signups()
     completed_signups = load_completed_signups()
+    persisted_share_url = load_share_url()
+    resolved_share_url = persisted_share_url
+
+    if not resolved_share_url and share_url:
+        resolved_share_url = save_share_url(share_url)
 
     taken_songs = {item.get("song", "") for item in signups}
     available_performer = [song for song in performer_songs if song not in taken_songs]
@@ -191,7 +229,7 @@ def build_state(share_url: str | None = None) -> dict[str, Any]:
         "songVideos": song_videos,
         "signups": signups,
         "completedSignups": completed_signups,
-        "shareUrl": share_url or "",
+        "shareUrl": resolved_share_url,
     }
 
 
@@ -227,10 +265,23 @@ def get_state(request: Request) -> dict[str, Any]:
 
 @app.get("/api/qr")
 def get_qr_code(request: Request, text: str | None = Query(default=None)) -> Response:
-    payload = text or resolve_share_url(request)
+    payload = text or load_share_url() or save_share_url(resolve_share_url(request))
     image = qrcode.make(payload, image_factory=qrcode.image.svg.SvgPathImage)
     svg_bytes = image.to_string()
     return Response(content=svg_bytes, media_type="image/svg+xml")
+
+
+@app.post("/api/share-url")
+async def update_share_url(payload: ShareUrlRequest, request: Request) -> dict[str, str]:
+    if not is_valid_admin_code(payload.code):
+        raise HTTPException(status_code=403, detail="Invalid admin code.")
+
+    share_url = validate_share_url(payload.shareUrl)
+    with state_lock:
+        save_share_url(share_url)
+
+    await manager.broadcast_json({"type": "state", "payload": build_state(share_url)})
+    return {"status": "updated", "shareUrl": share_url}
 
 
 @app.post("/api/signup")
