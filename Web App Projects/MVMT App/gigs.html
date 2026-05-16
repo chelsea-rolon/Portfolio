@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MVMT - Gigs</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-view="gigs">
+  <div class="page-shell">
+    <header class="topbar">
+      <div>
+        <h1 class="brand-home-link" role="button" tabindex="0" aria-label="Go to homepage" data-action="go-home">MVMTUnite</h1>
+        <p class="lede">Forge Your Path. Own Every Step.</p>
+      </div>
+    </header>
+
+    <nav class="nav-tabs" aria-label="Primary">
+      <a class="nav-tab" href="signup.html">Sign In</a>
+      <a class="nav-tab" href="profile.html">Videos</a>
+      <a class="nav-tab" href="index.html">Classes</a>
+      <a class="nav-tab active" href="gigs.html">Gigs</a>
+      <a class="nav-tab" href="instructor.html">Instructor</a>
+    </nav>
+
+    <main>
+      <section class="view active" id="view-gigs">
+        <div class="section-header">
+          <div>
+            <p class="section-label">Gig page</p>
+            <h2>Apply for performances, shoots, and paid appearances.</h2>
+          </div>
+          <p class="support-copy">Keep your profile current so casting teams can move fast.</p>
+        </div>
+
+        <div class="grid-two narrow-gap">
+          <section class="card">
+            <div class="card-heading">
+              <div>
+                <h3>Open gigs</h3>
+                <p>Browse the latest opportunities.</p>
+              </div>
+            </div>
+            <div class="card-list" id="gig-list"></div>
+          </section>
+
+          <section class="card apply-card">
+            <p class="section-label">Quick apply</p>
+            <h3>Submit your interest</h3>
+            <p class="support-copy">A simple form for dancers who want to book gigs without leaving the app.</p>
+            <form id="gig-apply-form" class="stack-form">
+              <label class="field"><span>Name</span><input type="text" name="name" required placeholder="Jordan Lee" /></label>
+              <label class="field"><span>Email</span><input type="email" name="email" required placeholder="you@example.com" /></label>
+              <label class="field"><span>Portfolio link</span><input type="url" name="portfolio" placeholder="https://..." /></label>
+              <label class="field"><span>Why you're a fit</span><textarea name="note" rows="5" placeholder="Tell the team about your style, experience, and availability."></textarea></label>
+              <button class="primary-button full-width" type="submit">Send application</button>
+            </form>
+            <p class="toast" id="gig-toast" aria-live="polite"></p>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <template id="gig-card-template">
+    <article class="gig-card">
+      <div class="result-top">
+        <div>
+          <p class="mini-label project-type"></p>
+          <h4 class="title"></h4>
+        </div>
+        <span class="chip pay"></span>
+      </div>
+      <p class="support-copy gig-location"></p>
+      <p class="gig-copy"></p>
+      <div class="result-actions">
+        <button class="secondary-button small-button apply-button">Apply</button>
+        <span class="deadline"></span>
+      </div>
+    </article>
+  </template>
+
+  <script src="gigs.js"></script>
+</body>
+</html>

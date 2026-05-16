@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MVMT - Dance Discovery & Booking</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div>
+        <h1 class="brand-home-link" data-action="jump" data-target="home" role="button" tabindex="0" aria-label="Go to homepage">MVMTUnite</h1>
+        <p class="lede">Forge Your Path. Own Every Step.</p>
+      </div>
+    </header>
+
+    <nav class="nav-tabs" id="primary-nav" aria-label="Primary">
+      <a class="nav-tab" href="signup.html">Sign In</a>
+      <a class="nav-tab" href="profile.html">Videos</a>
+      <button class="nav-tab" data-view="classes">Classes</button>
+      <a class="nav-tab" href="gigs.html">Gigs</a>
+    </nav>
+
+    <main>
+      <section class="view active" id="view-home">
+        <div class="hero-card">
+          <div class="hero-copy">
+            <p class="hero-copy-note">Here at MVMTUnite we strive to create community through dance and movement. Find any class, anywhere.</p>
+            <p class="hero-copy-note">Find a class, gig, or instructor that suits your style.</p>
+            <div class="hero-metrics" id="hero-metrics"></div>
+          </div>
+          <div class="hero-panel hero-visual-panel">
+            <div class="hero-visual">
+              <span class="hero-visual-label">MVMT Unite</span>
+            </div>
+          </div>
+        </div>
+
+        <form class="hero-search" id="home-search-form">
+          <label class="sr-only" for="home-search-input">Search classes</label>
+          <input id="home-search-input" type="search" placeholder="Search for class" />
+          <button class="primary-button" type="submit">Search</button>
+        </form>
+
+        <div class="section-band section-band-classes">
+          <div>
+            <p class="section-label section-label-inverse">Featured Classes</p>
+            <h3>Trending classes this month</h3>
+          </div>
+          <button class="text-button text-button-inverse" data-action="jump" data-target="classes">View all classes</button>
+        </div>
+        <div class="card-list feature-grid" id="featured-classes"></div>
+
+        <div class="section-band section-band-instructors">
+          <div>
+            <p class="section-label section-label-inverse">Featured Instructors</p>
+            <h3>Learn from our top instructors</h3>
+          </div>
+        </div>
+        <div class="card-list feature-grid feature-grid-instructors" id="featured-instructors"></div>
+
+        <div class="cta-strip">
+          <div>
+            <p class="section-label section-label-inverse">Ready to forge your path?</p>
+          </div>
+          <button class="primary-button" data-action="jump" data-target="signup">Sign Up Here</button>
+        </div>
+      </section>
+
+      <section class="view" id="view-classes">
+        <div class="classes-hero card">
+          <div>
+            <p class="section-label">Classes</p>
+            <h2>Search for class</h2>
+            <p class="support-copy">Explore classes near you and filter by price, skill level, and length.</p>
+          </div>
+          <div class="classes-hero-visual"></div>
+        </div>
+
+        <div class="section-header">
+          <div>
+            <p class="section-label">Class search page</p>
+            <h2>Filter by level, cost, and class length.</h2>
+          </div>
+          <div class="pill-row" id="active-filter-pills"></div>
+        </div>
+
+        <section class="search-layout">
+          <aside class="card filter-card">
+            <div class="card-heading compact">
+              <div>
+                <h3>Search classes</h3>
+                <p>Refine the list to match your routine.</p>
+              </div>
+            </div>
+
+            <label class="field">
+              <span>Search</span>
+              <input id="search-input" type="search" placeholder="Jazz funk, hip hop, heels..." />
+            </label>
+
+            <label class="field">
+              <span>Nearby radius</span>
+              <select id="radius-select"></select>
+            </label>
+
+            <label class="field">
+              <span>Skill level</span>
+              <select id="level-select"></select>
+            </label>
+
+            <label class="field">
+              <span>Max cost</span>
+              <input id="cost-input" type="range" min="15" max="120" step="5" />
+              <div class="range-caption"><span>Budget friendly</span><strong id="cost-value"></strong></div>
+            </label>
+
+            <label class="field">
+              <span>Class length</span>
+              <select id="length-select"></select>
+            </label>
+
+            <label class="field checkbox-field">
+              <input id="online-only" type="checkbox" />
+              <span>Show online and hybrid classes</span>
+            </label>
+
+            <button class="secondary-button full-width" id="reset-filters">Reset filters</button>
+          </aside>
+
+          <div class="results-column">
+            <div class="results-toolbar card">
+              <div>
+                <p class="section-label">Available classes</p>
+                <h3 id="results-count"></h3>
+              </div>
+              <div class="results-tags" id="results-tags"></div>
+            </div>
+
+            <div class="card-list class-grid" id="class-results"></div>
+            <div class="class-pagination" aria-label="Class pagination">
+              <button class="pager-arrow" type="button" aria-label="Previous page">&#8592;</button>
+              <div class="pager-pages">
+                <button class="pager-page active" type="button">1</button>
+                <button class="pager-page" type="button">2</button>
+                <button class="pager-page" type="button">3</button>
+                <button class="pager-page" type="button">4</button>
+                <button class="pager-page" type="button">5</button>
+                <button class="pager-page" type="button">6</button>
+              </div>
+              <button class="pager-arrow" type="button" aria-label="Next page">&#8594;</button>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <footer class="site-footer">
+        <div>
+          <p class="eyebrow">MVMT Unite</p>
+          <p class="footer-tag">Forge Your Path. Own Every Step.</p>
+        </div>
+        <div class="footer-social">
+          <span>Follow Us</span>
+          <a href="#">Instagram @MVMTUnite</a>
+          <a href="#">X @MVMTUnite</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <template id="class-card-template">
+    <article class="result-card">
+      <div class="result-top">
+        <div>
+          <p class="mini-label distance"></p>
+          <h4 class="title"></h4>
+        </div>
+        <span class="chip level"></span>
+      </div>
+      <p class="support-copy studio"></p>
+      <div class="result-meta"></div>
+      <div class="result-actions">
+        <button class="secondary-button small-button book-button">Book class</button>
+        <button class="text-button small-button save-button">Save</button>
+      </div>
+    </article>
+  </template>
+
+  <template id="gig-card-template">
+    <article class="gig-card">
+      <div class="result-top">
+        <div>
+          <p class="mini-label project-type"></p>
+          <h4 class="title"></h4>
+        </div>
+        <span class="chip pay"></span>
+      </div>
+      <p class="support-copy gig-location"></p>
+      <p class="gig-copy"></p>
+      <div class="result-actions">
+        <button class="secondary-button small-button apply-button">Apply</button>
+        <span class="deadline"></span>
+      </div>
+    </article>
+  </template>
+
+  <template id="home-class-card-template">
+    <article class="feature-card">
+      <div class="feature-thumb"></div>
+      <div class="feature-body">
+        <p class="mini-label feature-type"></p>
+        <h4 class="feature-title"></h4>
+        <p class="feature-copy"></p>
+        <div class="feature-footer">
+          <span class="feature-meta"></span>
+          <button class="text-button small-button feature-button">Details</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <template id="instructor-card-template">
+    <article class="feature-card instructor-card">
+      <div class="feature-thumb instructor-thumb"></div>
+      <div class="feature-body">
+        <p class="mini-label feature-type"></p>
+        <h4 class="feature-title"></h4>
+        <p class="feature-copy"></p>
+        <div class="feature-footer">
+          <span class="feature-meta"></span>
+          <button class="text-button small-button feature-button">Details</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <template id="video-item-template">
+    <div class="video-item">
+      <div>
+        <strong class="video-name"></strong>
+        <p class="video-meta"></p>
+      </div>
+      <span class="chip soft">Uploaded</span>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

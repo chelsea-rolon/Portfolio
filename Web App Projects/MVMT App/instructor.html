@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MVMT - Instructor Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-view="instructor">
+  <div class="page-shell">
+    <header class="topbar">
+      <div>
+        <h1 class="brand-home-link" role="button" tabindex="0" aria-label="Go to homepage" data-action="go-home">MVMTUnite</h1>
+        <p class="lede">Forge Your Path. Own Every Step.</p>
+      </div>
+    </header>
+
+    <nav class="nav-tabs" aria-label="Primary">
+      <a class="nav-tab" href="signup.html">Sign In</a>
+      <a class="nav-tab" href="profile.html">Videos</a>
+      <a class="nav-tab" href="index.html">Classes</a>
+      <a class="nav-tab" href="gigs.html">Gigs</a>
+      <a class="nav-tab active" href="instructor.html">Instructor</a>
+    </nav>
+
+    <main>
+      <section class="view active" id="view-instructor">
+        <div class="section-header">
+          <div>
+            <p class="section-label">Instructor dashboard</p>
+            <h2>Publish classes for dancers to book.</h2>
+          </div>
+          <p class="support-copy">Only users signed up as instructors can access this page.</p>
+        </div>
+
+        <div class="grid-two narrow-gap" id="instructor-shell">
+          <section class="card">
+            <p class="section-label">Instructor summary</p>
+            <h3>Your teaching activity</h3>
+            <div class="detail-grid" id="instructor-stats"></div>
+          </section>
+
+          <section class="card">
+            <p class="section-label">Publish a class</p>
+            <h3>Upload a new listing</h3>
+            <p class="support-copy">Set the level, cost, length, and distance so dancers can find the class nearby.</p>
+            <form id="class-upload-form" class="stack-form">
+              <label class="field"><span>Class name</span><input name="title" type="text" required placeholder="Contemporary Flow" /></label>
+              <label class="field"><span>Studio / location</span><input name="studio" type="text" required placeholder="Northside Loft" /></label>
+              <label class="field"><span>Level</span>
+                <select name="level" id="upload-level">
+                  <option value="Beginner">Beginner</option>
+                  <option value="Intermediate">Intermediate</option>
+                  <option value="Advanced">Advanced</option>
+                </select>
+              </label>
+              <label class="field"><span>Cost</span><input name="cost" type="number" min="0" step="1" required placeholder="35" /></label>
+              <label class="field"><span>Length</span>
+                <select name="length" id="upload-length">
+                  <option value="45">45 min</option>
+                  <option value="60" selected>60 min</option>
+                  <option value="75">75 min</option>
+                  <option value="90">90 min</option>
+                </select>
+              </label>
+              <label class="field"><span>Distance</span><input name="distance" type="number" min="0.1" step="0.1" required placeholder="1.8" /></label>
+              <button class="primary-button full-width" type="submit">Publish class</button>
+            </form>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="instructor.js"></script>
+</body>
+</html>

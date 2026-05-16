@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MVMT - Dancer Profile</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-view="profile">
+  <div class="page-shell">
+    <header class="topbar">
+      <div>
+        <h1 class="brand-home-link" role="button" tabindex="0" aria-label="Go to homepage" data-action="go-home">MVMTUnite</h1>
+        <p class="lede">Forge Your Path. Own Every Step.</p>
+      </div>
+    </header>
+
+    <nav class="nav-tabs" aria-label="Primary">
+      <a class="nav-tab" href="signup.html">Sign In</a>
+      <a class="nav-tab active" href="profile.html">Videos</a>
+      <a class="nav-tab" href="index.html">Classes</a>
+      <a class="nav-tab" href="gigs.html">Gigs</a>
+      <a class="nav-tab" href="instructor.html">Instructor</a>
+    </nav>
+
+    <main>
+      <section class="view active" id="view-profile">
+        <div class="section-header">
+          <div>
+            <p class="section-label" id="profile-label">Dancer profile</p>
+            <h2 id="profile-heading">Manage your bookings and upload videos.</h2>
+          </div>
+          <div class="pill-row">
+            <span class="pill">Booked classes: <strong id="booked-count">0</strong></span>
+            <span class="pill">Video uploads: <strong id="video-count">0</strong></span>
+            <span class="pill">Instructor classes: <strong id="instructor-count">0</strong></span>
+          </div>
+        </div>
+
+        <div class="grid-two profile-grid">
+          <section class="card profile-card">
+            <div class="profile-header">
+              <div class="avatar">MV</div>
+              <div>
+                <h3 id="profile-name">Maya Vale</h3>
+                <p>Freestyle dancer, choreographer, and class seeker.</p>
+              </div>
+            </div>
+            <div class="detail-grid" id="profile-stats"></div>
+            <div class="profile-actions" id="profile-actions"></div>
+          </section>
+
+          <section class="card">
+            <p class="section-label">Upload your videos</p>
+            <h3>Show your work</h3>
+            <p class="support-copy">Add rehearsal clips or performance reels to your dancer profile.</p>
+            <label class="upload-box">
+              <input id="video-upload" type="file" accept="video/*" multiple />
+              <span>Drop videos here or click to upload</span>
+              <small>Any video format supported by your browser</small>
+            </label>
+            <div class="video-list" id="video-list"></div>
+          </section>
+        </div>
+
+        <div class="grid-two narrow-gap">
+          <section class="card">
+            <p class="section-label">Your bookings</p>
+            <h3>Booked classes and gigs</h3>
+            <div class="timeline" id="booking-list"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <template id="video-item-template">
+    <div class="video-item">
+      <div>
+        <strong class="video-name"></strong>
+        <p class="video-meta"></p>
+      </div>
+      <span class="chip soft">Uploaded</span>
+    </div>
+  </template>
+
+  <script src="profile.js"></script>
+</body>
+</html>

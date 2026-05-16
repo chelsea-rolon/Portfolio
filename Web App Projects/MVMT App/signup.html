@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MVMT - Sign In</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-view="signup">
+  <div class="page-shell">
+    <header class="topbar">
+      <div>
+        <h1 class="brand-home-link" role="button" tabindex="0" aria-label="Go to homepage" data-action="go-home">MVMTUnite</h1>
+        <p class="lede">Forge Your Path. Own Every Step.</p>
+      </div>
+    </header>
+
+    <nav class="nav-tabs" aria-label="Primary">
+      <a class="nav-tab active" href="signup.html">Sign In</a>
+      <a class="nav-tab" href="index.html">Home</a>
+    </nav>
+
+    <main>
+      <section class="view active" id="view-signup">
+        <section class="card signup-panel signup-auth-shell">
+          <h2 class="signup-title">Sign Up/Sign In</h2>
+
+          <form id="signup-form" class="stack-form signup-auth-form">
+            <input name="name" type="hidden" value="" />
+
+            <button type="button" class="auth-provider auth-provider-apple">
+              <span class="auth-icon">A</span>
+              <span>Continue with Apple</span>
+            </button>
+
+            <button type="button" class="auth-provider auth-provider-google">
+              <span class="auth-icon">G</span>
+              <span>Continue with Google</span>
+            </button>
+
+            <p class="auth-or">or</p>
+
+            <label class="field"><span>Email Address</span><input name="email" type="email" required /></label>
+            <label class="field"><span>Password</span><input name="password" type="password" required minlength="8" /></label>
+
+            <div class="auth-requirements">
+              <p>Password Requirements</p>
+              <ul>
+                <li>One uppercase letter</li>
+                <li>One number</li>
+                <li>One special character</li>
+                <li>Eight characters minimum</li>
+              </ul>
+            </div>
+
+            <div class="role-grid role-grid-inline" role="radiogroup" aria-label="Account type">
+              <label class="role-option role-pill">
+                <input type="radio" name="role" value="dancer" checked />
+                <span><strong>Dancer</strong></span>
+              </label>
+              <label class="role-option role-pill">
+                <input type="radio" name="role" value="instructor" />
+                <span><strong>Instructor</strong></span>
+              </label>
+            </div>
+
+            <p class="auth-terms">By signing up, I agree to MVMTUnite Terms of Service and Privacy policy.</p>
+
+            <button class="primary-button auth-submit" type="submit">Submit</button>
+          </form>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="signup.js"></script>
+</body>
+</html>
