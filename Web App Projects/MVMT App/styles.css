@@ -40,7 +40,9 @@ a { color: inherit; text-decoration: none; }
 }
 
 .topbar {
-  padding: 10px 8px 8px;
+  padding: 0;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 
 .topbar h1 {
@@ -51,20 +53,21 @@ a { color: inherit; text-decoration: none; }
 }
 
 .brand-home-link {
-  display: inline-block;
+  display: block;
+  width: 100vw;
   cursor: pointer;
+}
+
+.brand-logo {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .brand-home-link:focus-visible {
   outline: 2px solid rgba(95, 147, 230, 0.9);
   outline-offset: 4px;
   border-radius: 6px;
-}
-
-.lede {
-  margin: 2px 0 0;
-  color: #c7c7c7;
-  font-size: 0.72rem;
 }
 
 .nav-tabs {
@@ -117,13 +120,17 @@ main > .view.active { display: grid !important; gap: 16px; }
   font-weight: 700;
 }
 
-/* --- Home --- */
+/* ==================================================
+  HOME SECTION
+  ================================================== */
 .hero-card {
   display: grid;
   grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
   gap: 12px;
   padding: 14px;
 }
+
+/* Home Hero Layout */
 
 body[data-view="home"] .hero-card {
   background: #0b0b0b;
@@ -134,9 +141,17 @@ body[data-view="home"] .hero-card {
 }
 
 body[data-view="home"] .hero-copy {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
+  column-gap: 16px;
+  row-gap: 8px;
+  align-items: start;
   min-height: 332px;
+  grid-column: 1 / -1;
+}
+
+body[data-view="home"] .hero-copy-note {
+  grid-column: 1;
 }
 
 .hero-copy h2 {
@@ -207,10 +222,12 @@ body[data-view="home"] .hero-search .primary-button {
 .hero-visual {
   min-height: 300px;
   border-radius: 14px;
-  background:
-    radial-gradient(circle at 65% 35%, rgba(255, 255, 255, 0.22), transparent 25%),
-    radial-gradient(circle at 42% 58%, rgba(95, 147, 230, 0.28), transparent 28%),
-    linear-gradient(145deg, #080808, #1a1a1a);
+  background-image:
+    linear-gradient(145deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.12)),
+    url("photos/MVMTUnite.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   position: relative;
 }
 
@@ -233,14 +250,19 @@ body[data-view="home"] .hero-visual {
 
 .hero-metrics {
   margin-top: 14px;
+  margin-left: auto;
+  width: min(100%, 500px);
 }
 
+
+/* Home Testimonial Carousel */
 .testimonial-carousel {
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 12px;
   background: linear-gradient(155deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
-  width: min(100%, 500px);
-  padding: 10px;
+  width: 100%;
+  max-width: 500px;
+  padding: 15px;
   overflow: hidden;
 }
 
@@ -256,7 +278,7 @@ body[data-view="home"] .hero-visual {
   flex-direction: column;
   flex: 0 0 100%;
   width: 100%;
-  gap: 6px;
+  gap: 9px;
 }
 
 .testimonial-quote {
@@ -282,14 +304,16 @@ body[data-view="home"] .hero-visual {
 
 .testimonial-controls {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   margin-top: 10px;
 }
 
 body[data-view="home"] .hero-metrics {
-  margin-top: auto;
-  margin-bottom: 22px;
+  grid-column: 2;
+  justify-self: end;
+  align-self: center;
+  margin: 0;
 }
 
 .testimonial-dots {
@@ -327,6 +351,8 @@ body[data-view="home"] .hero-metrics {
 .testimonial-nav:focus-visible {
   background: rgba(255, 255, 255, 0.2);
 }
+
+/* Home Featured Section Bands */
 
 .section-band,
 .cta-strip {
@@ -370,6 +396,8 @@ body[data-view="home"] .cta-strip {
 .section-band-instructors h3 {
   font-size: clamp(0.8rem, 1.0vw, 1.0rem);
 }
+
+/* Home Featured Grids */
 
 .feature-grid {
   display: grid;
@@ -416,7 +444,7 @@ body[data-view="home"] .feature-card {
 .feature-grid .feature-card:nth-child(3) { grid-column: span 4; min-height: 140px; }
 .feature-grid .feature-card:nth-child(4) { grid-column: span 8; min-height: 180px; }
 
-/* Keep all Featured Classes cards the same footprint. */
+/* Featured Cards */
 #featured-classes .feature-card {
   grid-column: span 6;
   min-height: 240px;
@@ -476,7 +504,9 @@ body[data-view="home"] .feature-thumb {
 }
 .feature-meta { color: #d6d6d6; font-size: 0.82rem; }
 
-/* --- Signup exact look --- */
+/* ==================================================
+  SIGNUP SECTION
+  ================================================== */
 .signup-auth-shell {
   max-width: 760px;
   margin: 0 auto;
@@ -652,12 +682,25 @@ body[data-view="home"] .feature-thumb {
   min-width: 210px;
 }
 
-/* --- Classes / gigs / profile keep bento style --- */
+/* ==================================================
+  CLASSES / GIGS / PROFILE SECTION
+  ================================================== */
 .classes-hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 240px;
   gap: 10px;
   padding: 12px;
+}
+
+#view-classes .classes-hero > div:first-child {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+#view-classes .classes-hero .support-copy {
+  margin: 0 auto;
+  max-width: 72ch;
+  text-align: center;
 }
 
 .classes-hero h2,
@@ -689,12 +732,25 @@ body[data-view="home"] .feature-thumb {
 .narrow-gap { gap: 12px; }
 .card { padding: 12px; }
 
+/* Classes Search Layout */
 .search-layout {
   display: grid;
   grid-template-columns: 320px minmax(0, 1fr);
   gap: 12px;
 }
 
+/* Results Panel */
+.results-column {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.results-column .class-grid {
+  flex: 1 1 auto;
+}
+
+/* Filter Sidebar */
 .filter-card { position: sticky; top: 10px; align-self: start; }
 .apply-card { align-self: start; }
 
@@ -746,6 +802,7 @@ body[data-view="home"] .feature-thumb {
 
 .checkbox-field input { width: 18px; height: 18px; accent-color: var(--accent); }
 
+/* Results Toolbar */
 .results-toolbar {
   display: flex;
   justify-content: space-between;
@@ -772,7 +829,14 @@ body[data-view="home"] .feature-thumb {
 .chip { background: rgba(95, 147, 230, 0.16); color: #c8d9f7; }
 .chip.soft { background: rgba(255, 255, 255, 0.08); color: #ddd; }
 
-#class-results,
+/* Results List */
+#class-results {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-flow: row;
+  gap: 10px;
+}
+
 #gig-list,
 #booking-list,
 #video-list {
@@ -798,10 +862,7 @@ body[data-view="home"] .feature-thumb {
 .result-card,
 .gig-card { padding: 12px; }
 
-#class-results .result-card { grid-column: span 4; min-height: 168px; position: relative; }
-#class-results .result-card:nth-child(3n + 1) { grid-column: span 8; min-height: 214px; }
-#class-results .result-card:nth-child(3n + 2) { grid-column: span 4; min-height: 152px; }
-#class-results .result-card:nth-child(3n) { grid-column: span 4; min-height: 152px; }
+#class-results .result-card { grid-column: 1 / -1; min-height: 168px; position: relative; }
 
 #gig-list .gig-card { grid-column: span 8; min-height: 154px; }
 #gig-list .gig-card:nth-child(even) { grid-column: span 4; }
@@ -915,12 +976,14 @@ body[data-view="home"] .feature-thumb {
 .timeline-item strong,
 .video-item strong { color: #fff; }
 
+/* Results Pagination */
 .class-pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 12px;
   margin-top: 10px;
+  margin-top: auto;
 }
 
 .pager-pages { display: flex; gap: 6px; }
@@ -966,6 +1029,9 @@ body[data-view="home"] .feature-thumb {
 body[data-view="signup"] .site-footer { margin-top: 110px; }
 body[data-view="signup"] #view-signup { min-height: 920px; }
 
+/* ==================================================
+  RESPONSIVE RULES
+  ================================================== */
 @media (max-width: 1120px) {
   .hero-card,
   .search-layout,
@@ -998,11 +1064,26 @@ body[data-view="signup"] #view-signup { min-height: 920px; }
   .filter-card,
   .apply-card { position: static; }
 
+  body[data-view="home"] .hero-copy {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="home"] .hero-copy-note,
+  body[data-view="home"] .hero-metrics {
+    grid-column: 1;
+  }
+
+  body[data-view="home"] .hero-metrics {
+    justify-self: stretch;
+    margin-top: 14px;
+  }
+
   .footer-social { text-align: left; }
 }
 
 @media (max-width: 760px) {
   .page-shell { width: min(100% - 10px, 100%); }
+  .brand-logo { max-height: 120px; }
   .nav-tabs {
     justify-content: space-between;
     gap: 12px;
@@ -1029,6 +1110,11 @@ body[data-view="signup"] #view-signup { min-height: 920px; }
   #booking-list,
   #video-list {
     grid-template-columns: 1fr;
+  }
+
+  .hero-metrics {
+    width: 100%;
+    margin-left: 0;
   }
 
   .feature-card {

@@ -1,42 +1,44 @@
+
 const storageKey = "mvmt-state-v1";
 
+/* featured class data */
 const classData = [
   {
     id: "cls-1",
-    title: "Sunrise House Foundation",
+    title: "Ballet Basics for Beginners",
     studio: "Northside Loft • 1.2 mi",
     level: "Beginner",
     cost: 24,
     length: 60,
     distance: 1.2,
     format: "In person",
-    tags: ["House", "Morning"],
+    tags: ["Ballet", "Beginner", "Morning"],
     instructor: "Nia Summers",
     seats: 12,
   },
   {
     id: "cls-2",
-    title: "Afro Fusion Lab",
+    title: "Afro Cardio Blast",
     studio: "Pulse Studio • 2.8 mi",
     level: "Intermediate",
     cost: 38,
     length: 75,
     distance: 2.8,
     format: "Hybrid",
-    tags: ["Afro", "Cardio"],
+    tags: ["Afro", "Cardio", "Intermediate"],
     instructor: "Darren Cole",
     seats: 14,
   },
   {
     id: "cls-3",
-    title: "Heels Choreo Intensive",
+    title: "Introduction to Lyra",
     studio: "Velvet Room • 4.1 mi",
-    level: "Advanced",
-    cost: 52,
+    level: "Beginner",
+    cost: 35,
     length: 90,
     distance: 4.1,
     format: "In person",
-    tags: ["Heels", "Performance"],
+    tags: ["lyra", "Performance", "beginner-friendly"],
     instructor: "Mina Ortega",
     seats: 10,
   },
@@ -111,6 +113,7 @@ const gigData = [
   },
 ];
 
+/* featured instructor data */
 const instructorData = [
   {
     id: "inst-1",
@@ -187,6 +190,10 @@ const testimonialData = [
     quote: "As an instructor, I filled my weekend workshop faster than expected.",
     name: "Mina O.",
     detail: "Guest instructor",
+
+    quote: "The gig board connected me with a paying opportunity that was the perfect fit for my schedule and style.",
+    name: "Darren C.",    
+    detail: "Commercial dancer",
   },
 ];
 
@@ -438,7 +445,29 @@ function renderHomeClassCard(item, index) {
     "linear-gradient(135deg, rgba(240, 152, 94, 0.96), rgba(22, 22, 22, 0.95))",
     "linear-gradient(135deg, rgba(165, 111, 255, 0.94), rgba(18, 18, 18, 0.96))",
   ][index % 4];
-  thumb.style.background = art;
+  if (item.title === "Ballet Basics for Beginners") {
+    thumb.style.backgroundImage = 'url("photos/contemporary_dancer.jpg")';
+    thumb.style.backgroundSize = "cover";
+    thumb.style.backgroundPosition = "center";
+    thumb.style.backgroundRepeat = "no-repeat";
+  } else if (item.title === "Afro Cardio Blast") {
+    thumb.style.backgroundImage = 'url("photos/hiphop_class.jpg")';
+    thumb.style.backgroundSize = "cover";
+    thumb.style.backgroundPosition = "center";
+    thumb.style.backgroundRepeat = "no-repeat";
+  } else if (item.title === "Introduction to Lyra") {
+    thumb.style.backgroundImage = 'url("photos/intro_to_lyra.jpg")';
+    thumb.style.backgroundSize = "cover";
+    thumb.style.backgroundPosition = "center";
+    thumb.style.backgroundRepeat = "no-repeat";
+  } else if (item.title === "Contemporary Flow") {
+    thumb.style.backgroundImage = 'url("photos/contemporary_flow.jpg")';
+    thumb.style.backgroundSize = "cover";
+    thumb.style.backgroundPosition = "center";
+    thumb.style.backgroundRepeat = "no-repeat";
+  } else {
+    thumb.style.background = art;
+  }
   node.querySelector(".feature-type").textContent = `${item.level} · ${item.length} min`;
   node.querySelector(".feature-title").textContent = item.title;
   node.querySelector(".feature-copy").textContent = `${item.instructor} · ${item.studio.replace(/ • .+$/, "")}`;
@@ -464,7 +493,29 @@ function renderInstructorCard(item, index) {
     "linear-gradient(135deg, rgba(73, 182, 164, 0.96), rgba(15, 15, 15, 0.94))",
     "linear-gradient(135deg, rgba(155, 123, 255, 0.94), rgba(15, 15, 15, 0.94))",
   ][index % 4];
-  thumb.style.background = art;
+  if (item.name === "Lola Lace") {
+    thumb.style.backgroundImage = 'url("photos/lola_lace.jpg")';
+    thumb.style.backgroundSize = "cover";
+    thumb.style.backgroundPosition = "center";
+    thumb.style.backgroundRepeat = "no-repeat";
+  } else if (item.name === "Rodrigo & Yari") {
+    thumb.style.backgroundImage = 'url("photos/rodrigo_yari.jpg")';
+    thumb.style.backgroundSize = "cover";
+    thumb.style.backgroundPosition = "center";
+    thumb.style.backgroundRepeat = "no-repeat";
+  } else if (item.name === "Tony Rivera") {
+    thumb.style.backgroundImage = 'url("photos/tony_rivera.jpg")';
+    thumb.style.backgroundSize = "cover";
+    thumb.style.backgroundPosition = "center";
+    thumb.style.backgroundRepeat = "no-repeat";
+  } else if (item.name === "Kira Yang") {
+    thumb.style.backgroundImage = 'url("photos/kira_yang.jpg")';
+    thumb.style.backgroundSize = "cover";
+    thumb.style.backgroundPosition = "center";
+    thumb.style.backgroundRepeat = "no-repeat";
+  } else {
+    thumb.style.background = art;
+  }
   node.querySelector(".feature-type").textContent = item.specialty;
   node.querySelector(".feature-title").textContent = item.name;
   node.querySelector(".feature-copy").textContent = item.copy;
@@ -603,8 +654,17 @@ function renderFeatured() {
 }
 
 function renderClassResults() {
-  const filtered = getFilteredClasses();
   dom.classResults.innerHTML = "";
+
+  const searchQuery = String(state.filters.query || "").trim();
+  if (!searchQuery) {
+    dom.resultsCount.textContent = "";
+    dom.resultsTags.innerHTML = "";
+    dom.activeFilterPills.innerHTML = "";
+    return;
+  }
+
+  const filtered = getFilteredClasses();
   dom.resultsCount.textContent = `${filtered.length} class${filtered.length === 1 ? "" : "es"} match your filters`;
 
   dom.resultsTags.innerHTML = [

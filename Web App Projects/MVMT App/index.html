@@ -8,13 +8,17 @@
 </head>
 <body>
   <div class="page-shell">
+
+    <!-- Header / Brand -->
     <header class="topbar">
       <div>
-        <h1 class="brand-home-link" data-action="jump" data-target="home" role="button" tabindex="0" aria-label="Go to homepage">MVMTUnite</h1>
-        <p class="lede">Forge Your Path. Own Every Step.</p>
+        <h1 class="brand-home-link" data-action="jump" data-target="home" role="button" tabindex="0" aria-label="Go to homepage">
+          <img class="brand-logo" src="photos/MVMTUnite.png" alt="MVMTUnite" />
+        </h1>
       </div>
     </header>
 
+    <!-- Primary Navigation -->
     <nav class="nav-tabs" id="primary-nav" aria-label="Primary">
       <a class="nav-tab" href="signup.html">Sign In</a>
       <a class="nav-tab" href="profile.html">Videos</a>
@@ -23,70 +27,72 @@
     </nav>
 
     <main>
+      <!-- Home View -->
       <section class="view active" id="view-home">
+        <!-- Hero Content -->
         <div class="hero-card">
+          <!-- Hero Copy + Testimonial -->
           <div class="hero-copy">
-            <p class="hero-copy-note">Here at MVMTUnite we strive to create community through dance and movement. Find any class, anywhere.</p>
+            <p class="hero-copy-note">Here at MVMTUnite we strive to create community through dance and movement. Whether you are brand new to dance, or just want to develop a new skill, you'll find dozens of different classes to explore. Find any class, anywhere.</p>
             <p class="hero-copy-note">Find a class, gig, or instructor that suits your style.</p>
+            <!-- Testimonial Mount Point -->
             <div class="hero-metrics" id="hero-metrics"></div>
           </div>
-          <div class="hero-panel hero-visual-panel">
-            <div class="hero-visual">
-              <span class="hero-visual-label">MVMT Unite</span>
-            </div>
           </div>
         </div>
 
-        <form class="hero-search" id="home-search-form">
-          <label class="sr-only" for="home-search-input">Search classes</label>
-          <input id="home-search-input" type="search" placeholder="Search for class" />
-          <button class="primary-button" type="submit">Search</button>
-        </form>
 
+
+        <!-- Featured Classes -->
         <div class="section-band section-band-classes">
           <div>
             <p class="section-label section-label-inverse">Featured Classes</p>
             <h3>Trending classes this month</h3>
           </div>
-          <button class="text-button text-button-inverse" data-action="jump" data-target="classes">View all classes</button>
         </div>
+        <!-- Featured Classes Grid -->
         <div class="card-list feature-grid" id="featured-classes"></div>
+         <button class="text-button text-button-inverse" data-action="jump" data-target="classes">View All Classes</button>
+        </div>
 
+        
+        <!-- Featured Instructors -->
         <div class="section-band section-band-instructors">
           <div>
             <p class="section-label section-label-inverse">Featured Instructors</p>
             <h3>Learn from our top instructors</h3>
           </div>
         </div>
+        <!-- Featured Instructors Grid -->
         <div class="card-list feature-grid feature-grid-instructors" id="featured-instructors"></div>
 
-        <div class="cta-strip">
-          <div>
-            <p class="section-label section-label-inverse">Ready to forge your path?</p>
-          </div>
-          <button class="primary-button" data-action="jump" data-target="signup">Sign Up Here</button>
-        </div>
-      </section>
+      
 
+      <!-- Classes View -->
       <section class="view" id="view-classes">
         <div class="classes-hero card">
           <div>
-            <p class="section-label">Classes</p>
-            <h2>Search for class</h2>
             <p class="support-copy">Explore classes near you and filter by price, skill level, and length.</p>
           </div>
           <div class="classes-hero-visual"></div>
+          <form class="hero-search" id="home-search-form">
+          <label class="sr-only" for="home-search-input">Search classes</label>
+          <input id="home-search-input" type="search" placeholder="Search for class" />
+          <button class="primary-button" type="submit">Search</button>
+        </form>
         </div>
+        
 
+        <!-- Classes Search and Results -->
         <div class="section-header">
           <div>
-            <p class="section-label">Class search page</p>
             <h2>Filter by level, cost, and class length.</h2>
           </div>
           <div class="pill-row" id="active-filter-pills"></div>
         </div>
 
         <section class="search-layout">
+          <!-- Filter Sidebar -->
           <aside class="card filter-card">
             <div class="card-heading compact">
               <div>
@@ -112,7 +118,7 @@
 
             <label class="field">
               <span>Max cost</span>
-              <input id="cost-input" type="range" min="15" max="120" step="5" />
+              <input id="cost-input" type="range" min="0" max="50" step="5" />
               <div class="range-caption"><span>Budget friendly</span><strong id="cost-value"></strong></div>
             </label>
 
@@ -126,10 +132,17 @@
               <span>Show online and hybrid classes</span>
             </label>
 
+            <label class="field">
+              <span>Class type</span>
+              <select id="type-select"></select>
+            </label>
+
             <button class="secondary-button full-width" id="reset-filters">Reset filters</button>
           </aside>
 
+          <!-- Results Panel -->
           <div class="results-column">
+            <!-- Results Toolbar -->
             <div class="results-toolbar card">
               <div>
                 <p class="section-label">Available classes</p>
@@ -138,7 +151,9 @@
               <div class="results-tags" id="results-tags"></div>
             </div>
 
+            <!-- Results List -->
             <div class="card-list class-grid" id="class-results"></div>
+            <!-- Results Pagination -->
             <div class="class-pagination" aria-label="Class pagination">
               <button class="pager-arrow" type="button" aria-label="Previous page">&#8592;</button>
               <div class="pager-pages">
@@ -155,6 +170,16 @@
         </section>
       </section>
 
+    <!-- Call To Action -->
+     <div class="cta-strip">
+          <div>
+            <p class="section-label section-label-inverse">Ready to forge your path?</p>
+          </div>
+          <button class="primary-button" data-action="jump" data-target="signup">Sign Up Here</button>
+        </div>
+      </section>
+
+      <!-- Site Footer -->
       <footer class="site-footer">
         <div>
           <p class="eyebrow">MVMT Unite</p>
@@ -169,6 +194,7 @@
     </main>
   </div>
 
+  <!-- Template: Class Card -->
   <template id="class-card-template">
     <article class="result-card">
       <div class="result-top">
@@ -187,6 +213,7 @@
     </article>
   </template>
 
+  <!-- Template: Gig Card -->
   <template id="gig-card-template">
     <article class="gig-card">
       <div class="result-top">
@@ -205,6 +232,7 @@
     </article>
   </template>
 
+  <!-- Template: Home Feature Card -->
   <template id="home-class-card-template">
     <article class="feature-card">
       <div class="feature-thumb"></div>
@@ -220,6 +248,7 @@
     </article>
   </template>
 
+  <!-- Template: Instructor Card -->
   <template id="instructor-card-template">
     <article class="feature-card instructor-card">
       <div class="feature-thumb instructor-thumb"></div>
@@ -235,6 +264,7 @@
     </article>
   </template>
 
+  <!-- Template: Video Item -->
   <template id="video-item-template">
     <div class="video-item">
       <div>
