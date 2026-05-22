@@ -1,2 +1,0 @@
-cd "c:\Users\chels\Software-Engineering\python projects"
-uvicorn app:app --host 127.0.0.1 --port 8010 --reload
