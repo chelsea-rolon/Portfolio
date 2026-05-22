@@ -1,0 +1,64 @@
+{% extends "base_code.html" %}
+
+{% block main %}
+    <section class="page-header">
+        <div class="page-header-text">
+            <h2>Create a to-do list and keep your tasks organized.</h2>
+        </div>
+        <img src="{{ url_for('static', filename='css/icon_todo_list.png') }}" alt="To-Do List" class="header-icon">
+    </section>
+
+    <section class="task-form">
+        <form method="POST" action="{{ url_for('home') }}">
+            {{ form.csrf_token() }}
+            <div>
+                {{ form.title.label }}
+                {{ form.title() }}
+            </div>
+            <div>
+                {{ form.due_date.label }}
+                {{ form.due_date() }}
+            </div>
+            <div>
+                {{ form.details.label }}
+                {{ form.details(rows=3, placeholder='Add details for this task') }}
+            </div>
+            {{ form.submit(class="task-submit") }}
+        </form>
+    </section>
+
+    <section class="task-list">
+        <h2>Current To-Do List</h2>
+        {% if tasks %}
+            <ul>
+                {% for task in tasks %}
+                    <li class="task-item{% if task.completed %} is-complete{% endif %}">
+                        <div>
+                            <strong>{{ task.title }}</strong>
+                            {% if task.due_date %}
+                                <small>Due: {{ task.due_date.strftime('%b %d, %Y') }}</small>
+                            {% endif %}
+                            {% if task.details %}
+                                <p class="task-details">{{ task.details }}</p>
+                            {% endif %}
+                            <small>{{ task.date.strftime('%b %d, %Y %I:%M %p') }}</small>
+                        </div>
+                        <div class="task-actions">
+                            <form method="POST" action="{{ url_for('toggle_task', task_id=task.id) }}">
+                                <button type="submit" class="task-toggle">
+                                    {% if task.completed %}Undo{% else %}Complete{% endif %}
+                                </button>
+                            </form>
+                            <a class="task-link" href="{{ url_for('edit_task', task_id=task.id) }}">Edit</a>
+                            <form method="POST" action="{{ url_for('delete_task', task_id=task.id) }}">
+                                <button type="submit" class="task-delete">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Nothing yet. Add your first one above.</p>
+        {% endif %}
+    </section>
+{% endblock %}

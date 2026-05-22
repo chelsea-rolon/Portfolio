@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Web List Maker</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+	<main>
+		<nav class="top-nav" aria-label="Page navigation">
+			<img src="{{ url_for('static', filename='nav_bar_image.png') }}" alt="" class="nav-bar-image">
+			{% if request.endpoint == 'home' %}
+				<span class="nav-button is-active" aria-current="page">Home</span>
+			{% else %}
+				<a class="nav-button" href="{{ url_for('home') }}">Home</a>
+			{% endif %}
+			{% if request.endpoint == 'about' %}
+				<span class="nav-button is-active" aria-current="page">About</span>
+			{% else %}
+				<a class="nav-button" href="{{ url_for('about') }}">About</a>
+			{% endif %}
+		</nav>
+		{% block main %}{% endblock %}
+	</main>
+</body>
+</html>
