@@ -83,6 +83,15 @@ main {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2), 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
+.about-container a {
+  color: #4f6bed;
+  text-decoration: underline;
+}
+
+.about-container a:hover {
+  color: #9e45f2;
+}
+
 form {
   display: grid;
   gap: 12px;
