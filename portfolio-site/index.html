@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chelsea Rolon| Portfolio</title>
+    <meta
+      name="description"
+      content="Portfolio of software projects including Python apps, web apps, and full-stack prototypes."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top">Chelsea_Rolon.dev</a>
+      <nav>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#resume">Resume</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero reveal">
+        <p class="eyebrow">Software Developer Portfolio</p>
+        <h1>UX Certified Software Developer building practical digital products</h1>
+        <p class="lead">
+          I build and design user-centered products that solve real workflow problems, from
+          finance and productivity tools to intuitive interactive experiences.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">See Projects</a>
+          <a class="btn btn-ghost" href="#resume">View Resume</a>
+        </div>
+      </section>
+
+      <section class="panel reveal" id="projects">
+        <div class="section-head">
+          <h2>Featured Projects</h2>
+          <div class="filters" role="group" aria-label="Project filters">
+            <button class="chip is-active" data-filter="all">All</button>
+            <button class="chip" data-filter="python">Python</button>
+            <button class="chip" data-filter="web">Web</button>
+            <button class="chip" data-filter="fullstack">Full Stack</button>
+          </div>
+        </div>
+
+       <article class="project-card" data-tags="python fullstack">
+            <span class="status-badge status-complete">Complete</span>
+            <h3>To-Do List Creator</h3>
+            <p>
+              Flask task manager with create/edit/delete flows, completion toggles, due dates,
+              and SQLite-backed persistence.
+            </p>
+            <ul>
+              <li>Flask</li>
+              <li>SQLite</li>
+              <li>CRUD workflow</li>
+            </ul>
+            <div class="links">
+              <a href="#" aria-disabled="true">GitHub Link</a>
+              <a href="#" aria-disabled="true">Ready for Demo</a>
+            </div>
+
+        <div class="project-grid" id="project-grid">
+          <article class="project-card" data-tags="python fullstack">
+            <span class="status-badge status-wip">Work in Progress</span>
+            <h3>Expense Tracker Processor</h3>
+            <p>
+              FastAPI tool for uploading statements, normalizing transaction data, applying
+              category filters, and downloading cleaned results.
+            </p>
+            <ul>
+              <li>FastAPI</li>
+              <li>Data processing</li>
+              <li>CSV export flow</li>
+            </ul>
+            <div class="links">
+              <a href="#" aria-disabled="true">GitHub Link</a>
+              <a href="#" aria-disabled="true">In Progress</a>
+            </div>
+          </article>
+
+          <article class="project-card" data-tags="python fullstack">
+            <span class="status-badge status-wip">Work in Progress</span>
+            <h3>Karaoke Sign Up</h3>
+            <p>
+              Broadway karaoke sign-up platform with public registration page, admin controls,
+              shareable link support, and performer media organization.
+            </p>
+            <ul>
+              <li>FastAPI</li>
+              <li>Admin workflow</li>
+              <li>JSON data storage</li>
+            </ul>
+            <div class="links">
+              <a href="#" aria-disabled="true">GitHub Link</a>
+              <a href="#" aria-disabled="true">In Progress</a>
+            </div>
+          </article>
+
+          <article class="project-card" data-tags="python">
+            <span class="status-badge status-wip">Work in Progress</span>
+            <h3>Adventure Game (CLI + GUI)</h3>
+            <p>
+              Narrative game available as both terminal and Tkinter GUI experiences, including
+              custom sprite and scene assets.
+            </p>
+            <ul>
+              <li>Python</li>
+              <li>Tkinter GUI</li>
+              <li>Game assets</li>
+            </ul>
+            <div class="links">
+              <a href="#" aria-disabled="true">GitHub Link</a>
+              <a href="#" aria-disabled="true">In Progress</a>
+            </div>
+          </article>
+
+          <article class="project-card" data-tags="web">
+            <span class="status-badge status-wip">Work in Progress</span>
+            <h3>MVMT Dance Class App</h3>
+            <p>
+              Responsive dance marketplace prototype for discovering classes, booking gigs,
+              uploading dancer videos, and instructor class publishing. Inspired by my friends' real-life dance class booking struggles and built with a focus on intuitive UX and responsive design.
+            </p>
+            <ul>
+              <li>HTML/CSS/JS</li>
+              <li>Responsive UI</li>
+              <li>Marketplace UX</li>
+            </ul>
+            <div class="links">
+              <a href="#" aria-disabled="true">GitHub Link</a>
+              <a href="#" aria-disabled="true">In Progress</a>
+            </div>
+          </article>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel reveal" id="about">
+        <div class="section-head">
+          <h2>About Me</h2>
+        </div>
+        <div class="resume-accordion">
+          <details class="resume-item">
+            <summary>About Me</summary>
+            <div class="resume-content">
+              <p>
+                I’m Chelsea. I am a Python developer and UX-certified full stack software developer who specializes in bridging the gap between data-driven logic, human-centered design, and impactful software. Before transitioning into software development, I spent 8 years working remotely and independently as a Physical Therapist Assistant. During this time, I spearheaded a comprehensive fall prevention program where I conducted user interviews and surveys, analyzed data to uncover critical patterns in patient falls, and delivered data-driven presentations to ALF staff and patients. This experience ignited my passion for UX design and data analysis, leading me to earn my UX Certification and dive deep into Python programming.
+                My diverse background makes me a unique asset to any development team. I don’t just write clean, logical backend code; I approach every project with an 8-year foundation in empathetic patient care, a structured UX research framework, and a proven track record of managing independent, remote projects from concept to execution.
+                Whether I am optimizing data pipelines with Pandas, designing intuitive user flows, or producing large-scale creative community events, I thrive on turning complex problems into elegant, user-friendly solutions.
+              </p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="panel reveal" id="resume">
+        <div class="section-head">
+          <h2>Resume</h2>
+        </div>
+        <p>
+          Resume is available for download as a PDF, and a quick-read version is included below with expandable sections for details.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="assets/resume/Chelsea_Rolon_Resume.pdf" target="_blank"
+            >Open Resume PDF</a
+          >
+        </div>
+        <div class="resume-text">
+          <p class="resume-intro">
+            Quick-read resume version. Click any section to expand details.
+          </p>
+
+          <div class="resume-accordion">
+            <details class="resume-item">
+              <summary>Professional Summary</summary>
+              <div class="resume-content">
+                <p>
+                  UX-Certified Software Developer with 8 years of proven experience working autonomously in remote environments.
+                    Adept at bridging the gap between robust backend logic (Flask, SQLAlchemy) and intuitive frontend experiences (React,
+                    Figma). A strong data-driven problem solver with a background in user research, data analysis, and cross-functional
+                    leadership, uniquely equipped to build applications that are both highly functional and deeply user-centric.
+                </p>
+              </div>
+            </details>
+
+            <details class="resume-item">
+              <summary>Technical Skills</summary>
+              <div class="resume-content">
+                <ul class="resume-list">
+                  <li>Languages: Python, JavaScript, HTML5, CSS3</li>
+                  <li>Web Frameworks: Flask, React</li>
+                  <li>Databases &amp; ORMs: SQLAlchemy</li>
+                  <li>Libraries &amp; Data Tools: Pandas, NumPy, Web Scraping</li>
+                  <li>
+                    Development Environment: Git &amp; GitHub, Jupyter Notebook, Visual Studio
+                    Code
+                  </li>
+                </ul>
+              </div>
+            </details>
+
+            <details class="resume-item">
+              <summary>Selected Projects</summary>
+              <div class="resume-content">
+                <ul class="resume-list">
+                  <li>
+                    Web List Maker (Complete): Built a Flask + SQLite task manager with
+                    create/edit/delete flows, completion toggles, due dates, and persistent
+                    storage.
+                  </li>
+                  <li>
+                    Expense Tracker Processor (WIP): Building a FastAPI app to upload
+                    statements, normalize transaction data, filter categories, and export clean
+                    results.
+                  </li>
+                  <li>
+                    Karaoke Sign Up (WIP): Developing a FastAPI sign-up/admin system with shared
+                    event links and performer media organization.
+                  </li>
+                </ul>
+              </div>
+            </details>
+
+            <details class="resume-item">
+              <summary>Experience</summary>
+              <div class="resume-content">
+                <div class="experience-list">
+                  <article class="experience-item">
+                    <p class="experience-role">
+                      Freelance Software Developer & UX Designer
+                      <span>Self-Employed | February 2025 - Present</span>
+                    </p>
+                    <ul class="resume-list">
+                      <li>Designed user-centered flows and interfaces with wireframes and prototypes.</li>
+                      <li>Translated business needs into practical, responsive product experiences.</li>
+                      <li>Collaborated on usability-focused improvements across web projects.</li>
+                    </ul>
+                  </article>
+
+                  <article class="experience-item">
+                    <p class="experience-role">
+                      UX Design Projects
+                      <span>Reign Entertainment Collective | February 2025 - March 2025</span>
+                    </p>
+                    <ul class="resume-list">
+                      <li>
+                        Designed low- to high-fidelity wireframes, user flows, and interactive
+                        Figma prototypes for a responsive website.
+                      </li>
+                      <li>
+                        Led UX strategy and visual asset creation to support brand expansion from
+                        solo DJ services to a broader entertainment collective.
+                      </li>
+                      <li>
+                        Collaborated on information architecture and responsive layouts for mobile,
+                        tablet, and desktop.
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="experience-item">
+                    <p class="experience-role">
+                      UX Design Projects
+                      <span>WealthWell Startup | November 2024 - January 2025</span>
+                    </p>
+                    <ul class="resume-list">
+                      <li>
+                        Partnered with stakeholders to design interactive prototypes and responsive
+                        wireframes in Figma for a finance-focused startup.
+                      </li>
+                      <li>
+                        Conducted iterative user research and usability testing to improve
+                        navigation and conversion paths.
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="experience-item">
+                    <p class="experience-role">
+                      UX + Web Strategy Projects
+                      <span>Volusia Bounce & Slide | October 2024 - November 2024</span>
+                    </p>
+                    <ul class="resume-list">
+                      <li>
+                        Performed competitive audits and market research to refine branding, logo
+                        assets, and pricing strategy.
+                      </li>
+                      <li>
+                        Built and deployed a responsive website with data-informed marketing,
+                        loyalty workflows, and automated email campaigns.
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="experience-item">
+                    <p class="experience-role">
+                      Physical Therapist Assistant & Data Coordinator
+                      <span>Centerwell Home Health, Vital Caring, One Life | June 2016 - October 2025</span>
+                    </p>
+                    <ul class="resume-list">
+                      <li>
+                        Engineered a custom fall-tracking documentation system to improve incident
+                        reporting and operational efficiency across assisted living facilities.
+                      </li>
+                      <li>
+                        Conducted patient interviews and surveys, then used data analysis to
+                        identify behavioral and environmental fall-risk trends.
+                      </li>
+                      <li>
+                        Presented actionable insights to directors and residents to support
+                        preventative care initiatives.
+                      </li>
+                      <li>
+                        Managed complex caseloads and scheduling autonomously in fast-paced,
+                        remote clinical environments.
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="experience-item">
+                    <p class="experience-role">
+                      Senior Supervisor
+                      <span>Kaman's Art Shoppes | December 2013 - June 2016</span>
+                    </p>
+                    <ul class="resume-list">
+                      <li>
+                        Trained and mentored a cross-functional team of 20+ employees while
+                        overseeing high-volume booth and POS operations.
+                      </li>
+                      <li>
+                        Developed technical training materials for register operations and
+                        software onboarding.
+                      </li>
+                      <li>
+                        Partnered with regional leadership on data-informed sales campaigns to
+                        improve revenue and team performance metrics.
+                      </li>
+                    </ul>
+                  </article>
+                </div>
+              </div>
+            </details>
+
+            <details class="resume-item">
+              <summary>Education</summary>
+              <div class="resume-content">
+                <ul class="resume-list">
+                  <li>IBM Full Stack Software Developer Course - Coursera Online | 2026</li>
+                  <li>Google UX Design Certification - Coursera Online | 2024</li>
+                  <li>AS in Physical Therapist Assistant - Herzing University | 2016</li>
+                  <li>AS with Honors and EMT Diploma - Daytona State University | 2012</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel reveal" id="contact">
+        <div class="section-head">
+          <h2>Contact</h2>
+        </div>
+        <p>Update this section with your preferred links before publishing.</p>
+        <div class="contact-list">
+          <a href="#" aria-disabled="true">GitHub</a>
+          <a href="#" aria-disabled="true">LinkedIn</a>
+          <a href="mailto:chelsearolon13@gmail.com">chelsearolon13@gmail.com</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Built with intention. Hosted on GitHub Pages.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
