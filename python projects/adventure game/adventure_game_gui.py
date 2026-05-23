@@ -418,8 +418,8 @@ class GameApp(tk.Tk):
     def _draw_treasure_chest(self):
         self._draw_image_scene("game photos/treasure_chest.jpg")
 
-    def _draw_go_back_false(self):
-        self._draw_image_scene("game photos/go_back_false.jpg")
+    def _draw_go_back(self):
+        self._draw_image_scene("game photos/go_back.png")
 
     def _draw_misty_field(self):
         self._draw_image_scene("game photos/misty_field.jpg")
