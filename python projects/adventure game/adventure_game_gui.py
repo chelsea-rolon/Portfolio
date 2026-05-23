@@ -248,7 +248,7 @@ class GameApp(tk.Tk):
 
     def show_mist_path(self):
         self._clear_btns()
-        self._set_scene("mist_path")
+        self._set_scene("misty_field")
         self._draw_misty_field()
         self._text(
             "You enter the icy mist and stumble into an open field.\n"
@@ -281,12 +281,12 @@ class GameApp(tk.Tk):
             "The path ahead is steep and treacherous.\n"
             "Do you climb the mountain or turn back?"
         )
-        self._btn("CLIMB", self.show_CLIMB_UP).pack(side=tk.LEFT, padx=10, expand=True)
+        self._btn("CLIMB", self.show_keep_going_up).pack(side=tk.LEFT, padx=10, expand=True)
         self._btn("TURN BACK", self.show_intro).pack(side=tk.LEFT, padx=10, expand=True)
 
-    def show_CLIMB_UP(self):
+    def show_keep_going_up(self):
         self._clear_btns()
-        self._set_scene("climb_up")
+        self._set_scene("keep_going_up")
         self._draw_climb_up()
         self._text(
             "You start climbing the mountain, but it's slippery and dangerous.\n"
@@ -404,10 +404,10 @@ class GameApp(tk.Tk):
         self._draw_image_scene("game photos/choose_character.png")
 
     def _draw_mountain_path(self):
-        self._draw_image_scene("game photos/mountain_trail.jpg")
+        self._draw_image_scene("game photos/mountain_path.jpg")
 
     def _draw_climb_up(self):
-        self._draw_image_scene("game photos/mountain_trail.jpg")   
+        self._draw_image_scene("game photos/mountain_path.jpg")   
 
     def _draw_climb_up_again(self):
         self._draw_image_scene("game photos/keep_going_up.jpg")
