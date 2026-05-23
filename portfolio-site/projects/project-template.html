@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{PROJECT_NAME}} | Chelsea Rolon</title>
+    <meta
+      name="description"
+      content="Project details for {{PROJECT_NAME}}."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+
+    <header class="site-header">
+      <a class="brand" href="../index.html#top">Chelsea_Rolon.dev</a>
+      <nav>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#resume">Resume</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero reveal">
+        <p class="eyebrow">Project Details</p>
+        <h1>{{PROJECT_NAME}}</h1>
+        <p class="lead">
+          {{ONE_SENTENCE_PROJECT_SUMMARY}}
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="../index.html#projects">Back to Projects</a>
+          <a class="btn btn-ghost" href="{{GITHUB_REPO_OR_DEMO_LINK}}" target="_blank">Open Link</a>
+        </div>
+      </section>
+
+      <section class="panel reveal">
+        <div class="section-head">
+          <h2>Overview</h2>
+        </div>
+        <p>
+          {{PARAGRAPH_OVERVIEW}}
+        </p>
+      </section>
+
+      <section class="panel reveal">
+        <div class="section-head">
+          <h2>Highlights</h2>
+        </div>
+        <ul class="resume-list">
+          <li>{{HIGHLIGHT_1}}</li>
+          <li>{{HIGHLIGHT_2}}</li>
+          <li>{{HIGHLIGHT_3}}</li>
+        </ul>
+      </section>
+
+      <section class="panel reveal">
+        <div class="section-head">
+          <h2>Tech Stack</h2>
+        </div>
+        <ul class="resume-list">
+          <li>{{STACK_ITEM_1}}</li>
+          <li>{{STACK_ITEM_2}}</li>
+          <li>{{STACK_ITEM_3}}</li>
+        </ul>
+      </section>
+
+      <section class="panel reveal">
+        <div class="section-head">
+          <h2>Status</h2>
+        </div>
+        <p>{{STATUS_TEXT}}</p>
+      </section>
+    </main>
+  </body>
+</html>

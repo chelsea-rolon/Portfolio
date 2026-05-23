@@ -42,6 +42,7 @@ class GameApp(tk.Tk):
         self._animation_job = None
         self._animation_phase = 0
         self._sprite_cache = {}
+        self._bg_photo = None
         self._sprite_config = self._load_sprite_config()
 
         self.show_intro()
@@ -292,13 +293,13 @@ class GameApp(tk.Tk):
             "Halfway up, you lose your footing and fall back down to the base.\n"
             "Do you want to try climbing again or head back to the forest?"
         )
-        self._btn("TRY AGAIN", self.show_CLIMB_UP_Again).pack(side=tk.LEFT, padx=10, expand=True)
+        self._btn("TRY AGAIN", self.show_try_again).pack(side=tk.LEFT, padx=10, expand=True)
         self._btn("BACK TO FOREST", self.show_go_back_false).pack(side=tk.LEFT, padx=10, expand=True)
 
-    def show_CLIMB_UP_Again(self):
+    def show_try_again(self):
         self._clear_btns()
-        self._set_scene("climb_up_again")
-        self._draw_keep_going_up()
+        self._set_scene("try_again")
+        self._draw_try_again()
         self._text(
             "You carefully climb again, taking it slow and steady.\n"
             "After a long and exhausting climb, you reach the summit!\n"
@@ -332,7 +333,7 @@ class GameApp(tk.Tk):
             "Do you take the key or drink the potion?"
         )
         self._btn("GOLDEN KEY", self.show_treasure_chest, bg="#6a5200").pack(side=tk.LEFT, padx=10, expand=True)
-        self._btn("SILVER POTION", self.show_silver_potion, bg="#2a2a5a").pack(side=tk.LEFT, padx=10, expand=True)
+        self._btn("MAGICAL MAP", self.show_magical_map, bg="#2a2a5a").pack(side=tk.LEFT, padx=10, expand=True)
 
     def show_swept_away(self):
         self._clear_btns()
@@ -357,15 +358,13 @@ class GameApp(tk.Tk):
         )
         self._btn("PLAY AGAIN", self.show_intro).pack(expand=True)
 
-    def show_silver_potion(self):
+    def show_magical_map(self):
         self._clear_btns()
-        self._set_scene("silver_potion")
-        self._draw_silver_potion()
-        self._text(
-            "You drink the silver potion and make your wish.\n"
-            "You wish for endless adventure and live happily ever after!\n\n"
-            "  \u2605  YOU WIN!  \u2605"
-        )
+        self._set_scene("magical_map")
+        self._draw_magical_map()
+        self._text("You choose the magical map and it guides you to endless adventures.\n"
+            "\n\u2605  YOU WIN!  \u2605")
+        
         self._btn("PLAY AGAIN", self.show_intro).pack(expand=True)
 
     def show_lost_in_mist(self):
@@ -386,57 +385,62 @@ class GameApp(tk.Tk):
     def _draw_image_scene(self, img_path):
         self.canvas.delete("all")
         try:
-            from PIL import Image
+            from PIL import Image, ImageTk
             base = Path(__file__).parent
-            img = Image.open(base / img_path).convert("RGB").resize((GW, GH), Image.LANCZOS)
-            for r in range(GH):
-                for c in range(GW):
-                    red, green, blue = img.getpixel((c, r))
-                    self._px(c, r, f"#{red:02x}{green:02x}{blue:02x}")
+            img = Image.open(base / img_path).convert("RGB")
+            img = img.resize((GW * PS, GH * PS), Image.LANCZOS)
+            self._bg_photo = ImageTk.PhotoImage(img)
+            self.canvas.create_image(0, 0, image=self._bg_photo, anchor="nw")
         except Exception:
             # If image can't be loaded, fill with a dark background so text remains readable
             self._rect(0, 0, GW, GH, "#1a1a2e")
         self._draw_scene_overlays()
 
     def _draw_dark_forest(self, paths=False):
-        img = "forked_path.png" if paths else "forest_path.png"
+        img = "forked_path.jpg" if paths else "forest_path.jpg"
         self._draw_image_scene(f"game photos/{img}")
 
     def _draw_choose_character(self):
         self._draw_image_scene("game photos/choose_character.png")
 
     def _draw_mountain_path(self):
-        self._draw_image_scene("game photos/mountain_trail.png")
+        self._draw_image_scene("game photos/mountain_trail.jpg")
 
     def _draw_climb_up(self):
-        self._draw_image_scene("game photos/mountain_trail.png")   
+        self._draw_image_scene("game photos/mountain_trail.jpg")   
 
     def _draw_climb_up_again(self):
-        self._draw_image_scene("game photos/keep_going_up.png")
+        self._draw_image_scene("game photos/keep_going_up.jpg")
     
     def _draw_keep_going_up(self):
-        self._draw_image_scene("game photos/keep_going_up.png")
+        self._draw_image_scene("game photos/keep_going_up.jpg")
 
     def _draw_treasure_chest(self):
-        self._draw_image_scene("game photos/treasure_chest.png")
+        self._draw_image_scene("game photos/treasure_chest.jpg")
 
     def _draw_go_back_false(self):
-        self._draw_image_scene("game photos/go_back_false.png")
+        self._draw_image_scene("game photos/go_back_false.jpg")
 
     def _draw_misty_field(self):
-        self._draw_image_scene("game photos/misty_field.png")
+        self._draw_image_scene("game photos/misty_field.jpg")
 
     def _draw_river_bridge(self):
-        self._draw_image_scene("game photos/river_bridge.png")
+        self._draw_image_scene("game photos/river_bridge.jpg")
 
     def _draw_swept_away(self):
-        self._draw_image_scene("game photos/swept_away.png")
+        self._draw_image_scene("game photos/swept_away.jpg")
 
     def _draw_fairy_realm(self):
-        self._draw_image_scene("game photos/fairy_land.png")
+        self._draw_image_scene("game photos/fairy_land.jpg")
 
     def _draw_treasure_chest(self):
-        self._draw_image_scene("game photos/treasure_chest.png")
+        self._draw_image_scene("game photos/treasure_chest.jpg")
+
+    def _draw_try_again(self):
+        self._draw_image_scene("game photos/try_again.jpg")
+    
+    def _draw_magical_map(self):
+        self._draw_image_scene("game photos/magical_map.jpg")
 
     def _draw_silver_potion(self):
         self._draw_image_scene("game photos/silver_potion.png")

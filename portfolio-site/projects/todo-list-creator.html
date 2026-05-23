@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List Creator | Chelsea Rolon</title>
+    <meta
+      name="description"
+      content="Project details for the To-Do List Creator app built with Flask and SQLite."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+
+    <header class="site-header">
+      <a class="brand" href="../index.html#top">Chelsea_Rolon.dev</a>
+      <nav>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#resume">Resume</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero reveal">
+        <p class="eyebrow">Project Details</p>
+        <h1>To-Do List Creator</h1>
+        <p class="lead">
+          A Flask task manager with full CRUD functionality, due dates, completion toggles, and
+          persistent storage through SQLite.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="../index.html#projects">Back to Projects</a>
+        </div>
+      </section>
+
+      <section class="panel reveal">
+        <div class="section-head">
+          <h2>Overview</h2>
+        </div>
+        <p>
+          Created in May of 2026 as part of a Dev course project, this application helps users keep track of tasks in one place. It supports creating,
+          editing, deleting, and marking tasks complete. In addition I added an about page with project description and creator. I also added styling and fields for due dates and details. This includes a simple, mobile-friendly interface and a SQLite database for persistent storage.
+        </p>
+      </section>
+
+      <section class="panel reveal">
+        <div class="section-head">
+          <h2>Tech Stack</h2>
+        </div>
+        <ul class="resume-list">
+          <li>Backend: Flask</li>
+          <li>Database: SQLite + SQLAlchemy</li>
+          <li>Frontend: HTML, CSS, Jinja templates</li>
+        </ul>
+      </section>
+
+      <section class="panel reveal">
+        <div class="section-head">
+          <h3 class="project-shot-title">Home Page</h3>
+          <p>
+            <img class="project-shot" src="../assets/images/home_page.png" alt="Screenshot of the home page showing a list of tasks with options to add, edit, delete, and mark complete." />
+          </p>
+        </div>
+      </section>
+
+      <section class="panel reveal">
+        <div class="section-head">
+          <h3 class="project-shot-title">About Page</h3>
+          <p>
+            <img class="project-shot" src="../assets/images/about_page.png" alt="Screenshot of the about page showing project description and creator information." />
+          </p>
+        </div>
+      </section>
+
+      <section class="panel reveal">
+        <div class="section-head">
+          <h3 class="project-shot-title">Demo</h3>
+          <video class="project-video" controls preload="metadata" poster="../assets/images/home_page.png">
+            <source src="../assets/images/videos/todo-demo.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div class="video-footer">
+            <a class="btn btn-footer" href="../index.html#projects">Back to Projects</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </body>
+</html>

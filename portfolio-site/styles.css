@@ -1,11 +1,11 @@
 :root {
-  --bg: #0d1016;
+  --bg: #100b38;
   --ink: #f3f5f8;
   --muted: #a8b1bf;
   --panel: rgba(20, 27, 38, 0.8);
   --stroke: rgba(189, 206, 230, 0.2);
-  --accent: #ff7b4d;
-  --accent-2: #37c9bd;
+  --accent: #c6a0a3;
+  --accent-2: #915965;
   --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
 }
 
@@ -24,8 +24,8 @@ body {
   font-family: "Manrope", sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at 15% 10%, rgba(255, 123, 77, 0.22), transparent 36%),
-    radial-gradient(circle at 88% 8%, rgba(55, 201, 189, 0.2), transparent 42%),
+    radial-gradient(circle at 15% 10%, #100b38, transparent 36%),
+    radial-gradient(circle at 88% 8%, #5f2a4c, transparent 42%),
     var(--bg);
   line-height: 1.6;
   overflow-x: hidden;
@@ -43,7 +43,7 @@ body {
   height: 340px;
   left: -120px;
   top: 35%;
-  background: rgba(255, 123, 77, 0.15);
+  background: rgba(198, 160, 163, 0.15);
 }
 
 .orb-b {
@@ -51,7 +51,7 @@ body {
   height: 360px;
   right: -140px;
   top: 55%;
-  background: rgba(55, 201, 189, 0.14);
+  background: rgba(145, 89, 101, 0.14);
 }
 
 .site-header {
@@ -200,15 +200,15 @@ h2 {
 }
 
 .status-wip {
-  background: rgba(255, 123, 77, 0.18);
-  border: 1px solid rgba(255, 123, 77, 0.45);
-  color: #ffc8b3;
+  background: #5f2a4c;
+  border: 1px solid rgba(198, 160, 163, 0.45);
+  color: #ffffff;
 }
 
 .status-complete {
-  background: rgba(55, 201, 189, 0.2);
-  border: 1px solid rgba(55, 201, 189, 0.42);
-  color: #b7fff9;
+  background: #5f2a4c;
+  border: 1px solid rgba(198, 160, 163, 0.42);
+  color: #ffffff;
 }
 
 .project-card:hover {
@@ -250,7 +250,7 @@ h2 {
 
 .links a,
 .contact-list a {
-  color: var(--accent-2);
+  color: #a58a8c;
   font-weight: 800;
 }
 
@@ -361,6 +361,15 @@ h2 {
   font-size: 0.9rem;
 }
 
+.project-shot {
+  display: block;
+  width: min(100%, 860px);
+  height: auto;
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
 .btn {
   border-radius: 999px;
   padding: 10px 18px;
@@ -370,12 +379,20 @@ h2 {
 }
 
 .btn-primary {
-  background: linear-gradient(95deg, var(--accent) 0%, #ec7f3e 100%);
+  background: linear-gradient(95deg, var(--accent) 0%, #5f2a4c 100%);
+  border-color: rgba(243, 245, 248, 0.8);
+  color: #fff;
+}
+
+
+.btn-footer {
+  background: linear-gradient(95deg, var(--accent) 0%, #5f2a4c 100%);
+  border-color: rgba(243, 245, 248, 0.8);
   color: #fff;
 }
 
 .btn-ghost {
-  background: transparent;
+  background: linear-gradient(95deg, var(--accent) 0%, #5f2a4c 100%);
   border-color: rgba(243, 245, 248, 0.8);
   color: var(--ink);
 }
@@ -384,12 +401,13 @@ h2 {
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
+  color:#a58a8c;
 }
 
 footer {
   text-align: center;
   padding: 0 0 40px;
-  color: var(--muted);
+  color: #a58a8c;
 }
 
 .reveal {
@@ -437,4 +455,51 @@ footer {
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+/* To Do list creator specific styles */
+.project-shot-title {
+  width: 50%;
+  margin: 0 0 12px;
+  text-align: left;
+}
+
+.project-shot {
+  display: block;
+  width: min(50%, 860px);
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.project-video {
+  display: block;
+  width: min(50%, 860px);
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.video-footer {
+  width: 100%;
+  margin: 40px 0 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* End of To Do list creator specific styles */
+
+/* adventure game specific styles */
+
+.game-shot {
+  display: block;
+  width: min(100%, 860px);
+  height: auto;
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
 }

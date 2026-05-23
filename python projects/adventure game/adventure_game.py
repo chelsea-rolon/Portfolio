@@ -76,12 +76,12 @@ def river_path():
 
 #Fairy ring path
 def fairy_ring():
-    print("You take a deep breath and step into the fairy ring. The world around you shimmers and shifts. You find yourself in a magical realm filled with vibrant colors and strange creatures. A fairy approaches you and offers you a choice: do you chose a golden key that can unlock any door, or a silver potion that grants you one wish?")
-    choice = input("Type 'key' or 'potion':\n ").strip().lower()
+    print("You take a deep breath and step into the fairy ring. The world around you shimmers and shifts. You find yourself in a magical realm filled with vibrant colors and strange creatures. A fairy approaches you and offers you a choice: do you chose a golden key that can unlock any door, or a map that always takes you on a new adventure?")
+    choice = input("Type 'key' or 'map':\n ").strip().lower()
     if choice == "key":
         print("You choose the golden key and it unlocks a door to a hidden treasure. You win!")
-    elif choice == "potion":
-        print("You choose the silver potion and it grants you a wish. You wish for endless adventure and live happily ever after. Congratulations! Time to start a new adventure!")
+    elif choice == "map":
+        print("You choose the magical map and it guides you to endless adventures. Congratulations! Time to start a new adventure!")
     else:
         print("You hesitate too long and the fairy disappears. Game over.")
 
