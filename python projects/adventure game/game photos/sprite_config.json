@@ -3,56 +3,245 @@
     "intro": [
       {
         "sprite": "game photos/sprites/PLACEHOLDER.csv",
-        "c": 0,
-        "r": 0,
+        "c": 30,
+        "r": 40,
         "animation": {
           "mode": "blink",
           "interval_ms": 420
         }
       }
     ],
-    "forest_fork": [
+    "choose_character": [
       {
-        "sprite": "game photos/sprites/path_arrow_left.csv",
-        "c": 12,
-        "r": 10,
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/warrior_idle.png",
+        "c": 9,
+        "r": 7,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 2,
+        "frame_count": 2,
         "animation": {
-          "mode": "blink",
-          "interval_ms": 420
+          "mode": "frames",
+          "interval_ms": 350
         }
       },
       {
-        "sprite": "game photos/sprites/path_arrow_right.csv",
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/hunter_idle.png",
+        "c": 34,
+        "r": 7,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 2,
+        "frame_count": 2,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
+        }
+      }
+    ],
+    "confirm_quit": [
+      {
+        "sprite": "game photos/sprites/PLACEHOLDER.csv",
+        "c": 0,
+        "r": 0,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 420
+        }
+      }
+    ],
+    "goodbye": [
+      {
+        "sprite": "game photos/sprites/PLACEHOLDER.csv",
+        "c": 0,
+        "r": 0,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 420
+        }
+      }
+    ],
+    "forest_fork": [],
+    "forest_fork_warrior": [
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/warrior_idle.png",
+        "c": 25,
+        "r": 8,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 0,
+        "frame_count": 2,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
+        }
+      }
+    ],
+    "forest_fork_hunter": [
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/hunter_idle.png",
+        "c": 25,
+        "r": 8,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 0,
+        "frame_count": 2,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
+        }
+      }
+    ],
+    "misty_field": [
+      {
+        "sprite": "game photos/sprites/glow_ring.csv",
+        "c": 20,
+        "r": 8,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 300
+        }
+      }
+    ],
+    "misty_field_warrior": [
+      {
+        "sprite_type": "png_image",
+        "sprite": "game photos/fairy_ring.png",
         "c": 33,
-        "r": 10,
+        "r": 6,
+        "display_w": 400,
+        "display_h": 350,
         "animation": {
-          "mode": "blink",
-          "interval_ms": 420
+          "mode": "frames",
+          "interval_ms": 300
         }
-      }
-    ],
-    "mist_path": [
+      },
       {
-        "sprite": "game photos/sprites/PLACEHOLDER.csv",
-        "c": 0,
-        "r": 0,
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/warrior_idle.png",
+        "c": 4,
+        "r": 8,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 3,
+        "frame_count": 2,
         "animation": {
-          "mode": "blink",
-          "interval_ms": 420
+          "mode": "frames",
+          "interval_ms": 350
         }
       }
     ],
-    "river_path": [
+    "misty_field_hunter": [
       {
-        "sprite": "game photos/sprites/PLACEHOLDER.csv",
-        "c": 0,
-        "r": 0,
+       "sprite_type": "png_image",
+        "sprite": "game photos/fairy_ring.png",
+        "c": 33,
+        "r": 6,
+        "display_w": 400,
+        "display_h": 350,
         "animation": {
-          "mode": "blink",
-          "interval_ms": 420
+          "mode": "frames",
+          "interval_ms": 300
+        }
+      },
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/hunter_idle.png",
+        "c": 4,
+        "r": 8,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 3,
+        "frame_count": 2,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
         }
       }
     ],
+
+    "fairy_land": [],
+    "fairy_land_warrior": [
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/warrior.walk.png",
+        "c": 25,
+        "r": 12,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 0,
+        "frame_count": 2,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
+        }
+      }
+    ],
+    "fairy_land_hunter": [
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/hunter_walk.png",
+        "c": 25,
+        "r": 12,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 0,
+        "frame_count": 2,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
+        }
+      }
+    ],
+
+    "river_path": [],
+    "river_path_warrior": [
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/warrior_idle.png",
+        "c": 9,
+        "r": 4,
+        "scale": 2,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 2,
+        "frame_count": 2,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
+        }
+      }
+    ],
+    "river_path_hunter": [
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/hunter_idle.png",
+        "c": 9,
+        "r": 4,
+        "scale": 2,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 2,
+        "frame_count": 2,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
+        }
+      }
+    ],
+
     "mountain_path": [
       {
         "sprite": "game photos/sprites/PLACEHOLDER.csv",
@@ -64,7 +253,41 @@
         }
       }
     ],
-    "climb_up": [
+    "mountain_path_warrior": [
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/warrior_idle.png",
+        "c": 12,
+        "r": 10,
+        "scale": 2,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 3,
+        "frame_count": 2,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
+        }
+      }
+    ],
+    "mountain_path_hunter": [
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/hunter_idle.png",
+        "c": 12,
+        "r": 10,
+        "scale": 2,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 3,
+        "frame_count": 2,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
+        }
+      }
+    ],
+    "keep_going_up": [
       {
         "sprite": "game photos/sprites/PLACEHOLDER.csv",
         "c": 0,
@@ -75,7 +298,43 @@
         }
       }
     ],
-    "climb_up_again": [
+    "keep_going_up_warrior": [
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/warrior.walk.png",
+        "c": 30,
+        "r": 10,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 0,
+        "frame_count": 9,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
+        }
+      }
+    ],
+
+
+    "keep_going_up_hunter": [
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/hunter.walk.png",
+        "c": 30,
+        "r": 10,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 0,
+        "frame_count": 9,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
+        }
+      }
+    ],
+    "try_again": [
       {
         "sprite": "game photos/sprites/PLACEHOLDER.csv",
         "c": 0,
@@ -86,7 +345,41 @@
         }
       }
     ],
-    "go_back_false": [
+    "try_again_warrior": [
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/warrior.walk.png",
+        "c": 35,
+        "r": 9,
+        "scale": 1,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 0,
+        "frame_count": 9,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
+        }
+      }
+    ],
+    "try_again_hunter": [
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/hunter.walk.png",
+        "c": 35,
+        "r": 9,
+        "scale": 1,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 0,
+        "frame_count": 9,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
+        }
+      }
+    ],
+    "go_back": [
       {
         "sprite": "game photos/sprites/PLACEHOLDER.csv",
         "c": 0,
@@ -94,6 +387,40 @@
         "animation": {
           "mode": "blink",
           "interval_ms": 420
+        }
+      }
+    ],
+    "go_back_warrior": [
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/warrior_idle.png",
+        "c": 4,
+        "r": 8,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 0,
+        "frame_count": 2,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
+        }
+      }
+    ],
+    "go_back_hunter": [
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/hunter_idle.png",
+        "c": 4,
+        "r": 8,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 0,
+        "frame_count": 2,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
         }
       }
     ],
@@ -108,6 +435,61 @@
         }
       }
     ],
+    "fairy_ring_warrior": [
+      {
+        "sprite_type": "png_image",
+        "sprite": "game photos/fairy_ring.png",
+        "c": 30,
+        "r": 8,
+        "display_w": 144,
+        "display_h": 144,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 300
+        }
+      },
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/warrior_idle.png",
+        "c": 4,
+        "r": 8,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 3,
+        "frame_count": 2,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
+        }
+      }
+    ],
+    "fairy_ring_hunter": [
+      {
+        "sprite": "game photos/sprites/glow_ring.csv",
+        "c": 30,
+        "r": 8,
+        "animation": {
+          "mode": "blink",
+          "interval_ms": 300
+        }
+      },
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/hunter_idle.png",
+        "c": 4,
+        "r": 8,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 0,
+        "frame_count": 2,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350
+        }
+      }
+    ],
     "swept_away": [
       {
         "sprite": "game photos/sprites/PLACEHOLDER.csv",
@@ -119,28 +501,45 @@
         }
       }
     ],
-    "treasure_chest": [
+    "swept_away_warrior": [
       {
-        "sprite": "game photos/sprites/PLACEHOLDER.csv",
-        "c": 0,
-        "r": 0,
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/warrior_hurt.png",
+        "c": 20,
+        "r": 5,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 0,
+        "frame_count": 6,
         "animation": {
-          "mode": "blink",
-          "interval_ms": 420
+          "mode": "frames",
+          "interval_ms": 600,
+          "play_once": true,
+          "hide_on_complete": true
         }
       }
     ],
-    "silver_potion": [
+    "swept_away_hunter": [
       {
-        "sprite": "game photos/sprites/PLACEHOLDER.csv",
-        "c": 0,
-        "r": 0,
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/hunter_hurt.png",
+        "c": 20,
+        "r": 5,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 0,
+        "frame_count": 6,
         "animation": {
-          "mode": "blink",
-          "interval_ms": 420
+          "mode": "frames",
+          "interval_ms": 600,
+          "play_once": true,
+          "hide_on_complete": true
         }
       }
     ],
+
     "lost_in_mist": [
       {
         "sprite": "game photos/sprites/PLACEHOLDER.csv",
@@ -149,6 +548,44 @@
         "animation": {
           "mode": "blink",
           "interval_ms": 420
+        }
+      }
+    ],
+    "lost_in_mist_warrior": [
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/warrior.walk.png",
+        "c": 20,
+        "r": 8,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 0,
+        "frame_count": 6,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350,
+          "play_once": true,
+          "hide_on_complete": true
+        }
+      }
+    ],
+    "lost_in_mist_hunter": [
+      {
+        "sprite_type": "png_sheet",
+        "sprite": "game photos/sprites/animations/hunter_walk.png",
+        "c": 20,
+        "r": 8,
+        "scale": 3,
+        "frame_width": 64,
+        "frame_height": 64,
+        "sheet_row": 0,
+        "frame_count": 6,
+        "animation": {
+          "mode": "frames",
+          "interval_ms": 350,
+          "play_once": true,
+          "hide_on_complete": true
         }
       }
     ]
