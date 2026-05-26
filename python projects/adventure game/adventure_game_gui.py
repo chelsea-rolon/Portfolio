@@ -11,7 +11,7 @@ GH = 20   # grid rows     (480 px tall)
 class GameApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Choose Your OwnAdventure Game")
+        self.title("Choose Your Quest Game")
         self.resizable(False, False)
         self.geometry("1200x760")
         self.configure(bg="#1a1a2e")
@@ -378,7 +378,7 @@ class GameApp(tk.Tk):
         self._clear_btns()
         self._set_scene("confirm_quit")
         self._draw_dark_gameover()
-        self._text("<b>Are you sure you want to quit?")
+        self._text("Are you sure you want to quit?")
         self._btn("YES, QUIT", self.show_dark_game_over, bg="#6a1a1a").pack(side=tk.LEFT, padx=10, expand=True)
         self._btn("NO. GO BACK", self.show_intro).pack(side=tk.LEFT, padx=10, expand=True)
 
@@ -606,6 +606,9 @@ class GameApp(tk.Tk):
 
     def _draw_try_again(self):
         self._draw_image_scene("game photos/try_again.jpg")
+
+    def _draw_fairy_land_choice(self):
+        self._draw_image_scene("game photos/key_or_map.png")
     
     def _draw_magical_map(self):
         self._draw_image_scene("game photos/magical_map.jpg")
