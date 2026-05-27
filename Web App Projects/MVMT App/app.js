@@ -6,6 +6,7 @@ const classData = [
   {
     id: "cls-1",
     title: "Ballet Basics for Beginners",
+    description: "Build posture, alignment, and confidence through beginner-friendly barre and center combinations.",
     studio: "Northside Loft • 1.2 mi",
     level: "Beginner",
     cost: 24,
@@ -19,10 +20,11 @@ const classData = [
   {
     id: "cls-2",
     title: "Afro Cardio Blast",
+    description: "High-energy choreography focused on rhythm, stamina, and full-body musical expression to the beats of Afrobeat and dancehall.",
     studio: "Pulse Studio • 2.8 mi",
     level: "Intermediate",
     cost: 38,
-    length: 75,
+    length: 60,
     distance: 2.8,
     format: "Hybrid",
     tags: ["Afro", "Cardio", "Intermediate"],
@@ -32,19 +34,21 @@ const classData = [
   {
     id: "cls-3",
     title: "Introduction to Lyra",
+    description: "Learn foundational aerial hoop shapes, safe transitions, and graceful movement pathways. Great for those who want a jumpstart in aerial arts.",
     studio: "Velvet Room • 4.1 mi",
     level: "Beginner",
     cost: 35,
-    length: 90,
+    length: 60,
     distance: 4.1,
     format: "In person",
-    tags: ["lyra", "Performance", "beginner-friendly"],
+    tags: ["Lyra", "Performance", "Beginner-friendly"],
     instructor: "Mina Ortega",
     seats: 10,
   },
   {
     id: "cls-4",
     title: "Contemporary Flow",
+    description: "Explore fluid floorwork, dynamic phrasing, and storytelling through contemporary technique.",
     studio: "Glass Hall • 0.9 mi",
     level: "All levels",
     cost: 30,
@@ -58,10 +62,11 @@ const classData = [
   {
     id: "cls-5",
     title: "Jazz Funk Sprint",
+    description: "Nail those auditions with fast-paced combos with sharp accents and performance-ready energy for intermediate dancers.",
     studio: "Uptown Works • 3.6 mi",
     level: "Intermediate",
     cost: 28,
-    length: 45,
+    length: 60,
     distance: 3.6,
     format: "In person",
     tags: ["Jazz Funk", "Fast pace"],
@@ -71,6 +76,7 @@ const classData = [
   {
     id: "cls-6",
     title: "K-pop Performance Team",
+    description: "Train choreography precision and stage formations while building team performance confidence.",
     studio: "Beat House • 5.0 mi",
     level: "Beginner",
     cost: 22,
@@ -470,7 +476,9 @@ function renderHomeClassCard(item, index) {
   }
   node.querySelector(".feature-type").textContent = `${item.level} · ${item.length} min`;
   node.querySelector(".feature-title").textContent = item.title;
-  node.querySelector(".feature-copy").textContent = `${item.instructor} · ${item.studio.replace(/ • .+$/, "")}`;
+  node.querySelector(".feature-copy").textContent = item.description || "";
+  node.querySelector(".feature-instructor").textContent = item.instructor;
+  node.querySelector(".feature-location").textContent = item.studio.replace(/ • .+$/, "");
   node.querySelector(".feature-meta").textContent = `${formatCost(item.cost)} · ${item.format}`;
 
   node.querySelector(".feature-button").addEventListener("click", () => {
@@ -556,6 +564,7 @@ function renderHeroTestimonials() {
   }
 
   dom.heroMetrics.innerHTML = `
+    <p class="testimonial-label">Testimonials</p>
     <section class="testimonial-carousel" aria-label="Member testimonials">
       <div class="testimonial-track">
         ${testimonialData.map((item, index) => `
