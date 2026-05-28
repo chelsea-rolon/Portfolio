@@ -1,0 +1,15 @@
+{
+  "start_url": "https://www.allrecipes.com/search?q=ground%20beef",
+  "recipe_keywords": [],
+  "ingredient_keywords": [
+    "ground",
+    "beef"
+  ],
+  "max_pages": 20,
+  "same_domain_only": true,
+  "visited_count": 20,
+  "recipe_count": 0,
+  "skipped_by_robots": [],
+  "failed_urls": [],
+  "recipes": []
+}

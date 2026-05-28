@@ -1,0 +1,96 @@
+{
+  "mode": "url_batch",
+  "input_url_count": 2,
+  "recipe_keywords": [],
+  "ingredient_keywords": [
+    "ground",
+    "beef"
+  ],
+  "recipe_count": 2,
+  "skipped_by_robots": [],
+  "failed_urls": [],
+  "recipes": [
+    {
+      "url": "https://www.allrecipes.com/recipe/16354/easy-meatloaf",
+      "title": "Easy Meatloaf",
+      "description": "This easy meatloaf recipe comes together quickly to make one of our best recipes that&#39;s been made over 8,000 times and never disappoints!",
+      "author": "Janet Shum",
+      "rating": "4.7",
+      "review_count": "9351",
+      "prep_time": "PT15M",
+      "cook_time": "PT60M",
+      "total_time": "PT75M",
+      "yield": [
+        "8",
+        "1 (9x5-inch) meatloaf"
+      ],
+      "category": [
+        "Dinner"
+      ],
+      "cuisine": [
+        "American"
+      ],
+      "image": "https://www.allrecipes.com/thmb/q2i_L11qt7QzJ7gl66atPJmKuU0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/16354-easy-meatloaf-DDMFS-0034-5186-hero-4x3-30547610d0f64d2fb3c25c0cab909af6.jpg",
+      "ingredients": [
+        "1.5 pounds ground beef",
+        "1 egg",
+        "1 onion, chopped",
+        "1 cup milk",
+        "1 cup dried bread crumbs",
+        "salt and pepper to taste",
+        "0.333 cup ketchup",
+        "2 tablespoons brown sugar",
+        "2 tablespoons prepared mustard"
+      ],
+      "ingredient_count": 9,
+      "instructions": [
+        "Gather the ingredients. Preheat the oven to 350 degrees F (175 degrees C). Lightly grease a 9x5-inch loaf pan.",
+        "Combine ground beef, onion, milk, bread crumbs, and egg in a large bowl, and season with salt and pepper. Press mixture evenly into the prepared loaf pan.",
+        "Stir ketchup, brown sugar, and mustard together in a small bowl until smooth, and spread evenly over the meatloaf.",
+        "Bake in the preheated oven until no longer pink in the center, about 1 hour. An instant-read thermometer inserted into the middle reads at least 160 degrees F (70 degrees C).",
+        "Serve hot and enjoy!"
+      ],
+      "instruction_count": 5
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/158140/spaghetti-sauce-with-ground-beef",
+      "title": "Homemade Spaghetti Sauce with Ground Beef",
+      "description": "Top spaghetti or your favorite pasta with this meaty homemade spaghetti sauce with ground beef recipe that&#39;s easy to make, and ready in about an hour.",
+      "author": "Allrecipes Member",
+      "rating": "4.7",
+      "review_count": "1572",
+      "prep_time": "PT10M",
+      "cook_time": "PT65M",
+      "total_time": "PT75M",
+      "yield": "8",
+      "category": [
+        "Dinner"
+      ],
+      "cuisine": [
+        "Italian"
+      ],
+      "image": "https://www.allrecipes.com/thmb/WlrNy9IKGkbR4uf2HtUPYUdH9_Y=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/158140-Spaghetti-sauce-with-ground-beef-DDMFS-4x3-ce598bcb0b304eed966c81f95e24d57b.jpg",
+      "ingredients": [
+        "1 pound ground beef",
+        "1 medium onion, chopped",
+        "1 small green bell pepper, diced",
+        "4 cloves garlic, minced",
+        "1 (28 ounce) can diced tomatoes",
+        "1 (16 ounce) can tomato sauce",
+        "1 (6 ounce) can tomato paste",
+        "2 teaspoons dried oregano",
+        "2 teaspoons dried basil",
+        "1 teaspoon salt",
+        "0.5 teaspoon ground black pepper"
+      ],
+      "ingredient_count": 11,
+      "instructions": [
+        "Gather all ingredients.",
+        "Combine ground beef, bell pepper, onion, and garlic in a large saucepan over medium-high heat; cook and stir until meat is browned and crumbly and vegetables are tender, 5 to 7 minutes. Drain grease.",
+        "Stir diced tomatoes, tomato sauce, and tomato paste into ground beef mixture; season with oregano, basil, salt, and black pepper. Simmer sauce for 1 hour, stirring occasionally.",
+        "Serve hot and enjoy!"
+      ],
+      "instruction_count": 4
+    }
+  ]
+}

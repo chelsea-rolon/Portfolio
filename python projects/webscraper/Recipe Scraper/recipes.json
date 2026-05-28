@@ -1,0 +1,14 @@
+{
+  "start_url": "https://www.allrecipes.com/",
+  "recipe_keywords": [
+    "ground",
+    "beef"
+  ],
+  "max_pages": 40,
+  "same_domain_only": true,
+  "visited_count": 40,
+  "recipe_count": 0,
+  "skipped_by_robots": [],
+  "failed_urls": [],
+  "recipes": []
+}
