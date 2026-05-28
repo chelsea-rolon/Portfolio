@@ -267,6 +267,10 @@ h2 {
   gap: 10px;
 }
 
+.projects-footer-actions {
+  margin-top: 18px;
+}
+
 .resume-text {
   margin-top: 18px;
   border-top: 1px solid var(--stroke);
